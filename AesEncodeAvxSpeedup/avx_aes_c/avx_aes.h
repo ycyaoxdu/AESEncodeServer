@@ -5,7 +5,9 @@
 #include <stdlib.h>
 #include <stdalign.h>
 #include "immintrin.h"
- 
+
+#define gmult(a, b) gmult_aes[256 * a + b]
+
 /*
  * S-box transformation table
  */
@@ -29,14 +31,28 @@ static const uint8_t s_box[256] = {
     0x8c, 0xa1, 0x89, 0x0d, 0xbf, 0xe6, 0x42, 0x68, 0x41, 0x99, 0x2d, 0x0f, 0xb0, 0x54, 0xbb, 0x16}; // f
 
 #define getSBoxValue(num) (s_box[(num)])
- 
 
-#define gmult(a,b) gmult_aes[256*a + b]
 
 //
 uint8_t *aes_init(size_t key_size);
 void aes_key_expansion(uint8_t *key, uint8_t *w);
-//
+/*
+    avx speed-up function
+*/
+__m256i avx_set_round_key(int i, uint8_t *expanded_key);
+__m256i avx_add_round_key(__m256i state, __m256i round_key);
+
+__m256i avx_sub_bytes(__m256i in_state);
+__m256i avx_shift_rows(__m256i input);
+__m256i avx_mix_column(__m256i state);
+
+__m256i avx_aes_loop(__m256i state, __m256i round_key);
+__m256i avx_aes_final(__m256i state, __m256i round_key);
+
 void avx_aes_encode(uint8_t *in, uint8_t *out, uint8_t *w);
+
+// helper
+__m256i avx_update_state(__m256i in_state);
+void *get_avx_output(__m256i message, uint8_t *out);
 
 #endif

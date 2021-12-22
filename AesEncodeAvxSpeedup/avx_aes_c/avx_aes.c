@@ -2,24 +2,24 @@
 #include "gmult.h"
 
 /*
- * The cipher Key.	
+ * The cipher Key.
  */
 int K;
 
 /*
- * Number of columns (32-bit words) comprising the State. For this 
+ * Number of columns (32-bit words) comprising the State. For this
  * standard, Nb = 4.
  */
 int Nb = 4;
 
 /*
- * Number of 32-bit words comprising the Cipher Key. For this 
+ * Number of 32-bit words comprising the Cipher Key. For this
  * standard, Nk = 4, 6, or 8.
  */
 int Nk;
 
 /*
- * Number of rounds, which is a function of  Nk  and  Nb (which is 
+ * Number of rounds, which is a function of  Nk  and  Nb (which is
  * fixed). For this standard, Nr = 10, 12, or 14.
  */
 int Nr;
@@ -77,8 +77,8 @@ uint8_t *Rcon(uint8_t i)
 }
 
 /*
- * Function used in the Key Expansion routine that takes a four-byte 
- * input word and applies an S-box to each of the four bytes to 
+ * Function used in the Key Expansion routine that takes a four-byte
+ * input word and applies an S-box to each of the four bytes to
  * produce an output word.
  */
 void sub_word(uint8_t *w)
@@ -93,8 +93,8 @@ void sub_word(uint8_t *w)
 }
 
 /*
- * Function used in the Key Expansion routine that takes a four-byte 
- * word and performs a cyclic permutation. 
+ * Function used in the Key Expansion routine that takes a four-byte
+ * word and performs a cyclic permutation.
  */
 void rot_word(uint8_t *w)
 {
@@ -110,6 +110,32 @@ void rot_word(uint8_t *w)
     }
 
     w[3] = tmp;
+}
+
+/*
+ * Initialize AES variables and allocate memory for expanded key
+ */
+uint8_t *aes_init(size_t key_size)
+{
+
+    switch (key_size)
+    {
+    default:
+    case 16:
+        Nk = 4;
+        Nr = 10;
+        break; // 128
+    case 24:
+        Nk = 6;
+        Nr = 12;
+        break; // 192
+    case 32:
+        Nk = 8;
+        Nr = 14;
+        break; // 256
+    }
+
+    return malloc(Nb * (Nr + 1) * 4); // nb=4 nr=10
 }
 
 void aes_key_expansion(uint8_t *key, uint8_t *w)
@@ -152,33 +178,28 @@ void aes_key_expansion(uint8_t *key, uint8_t *w)
     }
 }
 /*
- * Initialize AES variables and allocate memory for expanded key
- */
-uint8_t *aes_init(size_t key_size)
-{
+    avx constants
+*/
+const uint16_t T[16] = {
+    0x02, 0x03, 0x01, 0x01,
+    0x01, 0x02, 0x03, 0x01,
+    0x01, 0x01, 0x02, 0x03,
+    0x03, 0x01, 0x01, 0x02};
+const uint16_t mask_bit[16] = {
+    0x01, 0x01, 0x01, 0x01,
+    0x01, 0x01, 0x01, 0x01,
+    0x01, 0x01, 0x01, 0x01,
+    0x01, 0x01, 0x01, 0x01};
+const uint16_t multiplier[16] = {
+    0x1b, 0x1b, 0x1b, 0x1b,
+    0x1b, 0x1b, 0x1b, 0x1b,
+    0x1b, 0x1b, 0x1b, 0x1b,
+    0x1b, 0x1b, 0x1b, 0x1b};
 
-    switch (key_size)
-    {
-    default:
-    case 16:
-        Nk = 4;
-        Nr = 10;
-        break; //128
-    case 24:
-        Nk = 6;
-        Nr = 12;
-        break; //192
-    case 32:
-        Nk = 8;
-        Nr = 14;
-        break; //256
-    }
+const uint64_t left1[4] = {0x00, 0x10, 0x20, 0x30};
+const uint64_t right1[4] = {0x00, 0x30, 0x20, 0x10};
 
-    return malloc(Nb * (Nr + 1) * 4); //nb=4 nr=10
-}
-  
-
-/*  
+/*
  *  AVX FUNCTIONS
  */
 // fill the 4*4 matrix into __m256i.
@@ -247,8 +268,6 @@ __m256i avx_sub_bytes(__m256i in_state)
     return avx_set_data_u16(state[0]);
 }
 
-const uint64_t left1[4] = {0x00, 0x10, 0x20, 0x30};
-const uint64_t right1[4] = {0x00, 0x30, 0x20, 0x10};
 //
 __m256i avx_shift_rows(__m256i input)
 {
@@ -275,22 +294,6 @@ __m256i avx_update_state(__m256i in_state)
             state[y][x] = temp_state[x][y];
     return avx_set_data_u16(state[0]);
 }
-
-const uint16_t T[16] = {
-    0x02, 0x03, 0x01, 0x01,
-    0x01, 0x02, 0x03, 0x01,
-    0x01, 0x01, 0x02, 0x03,
-    0x03, 0x01, 0x01, 0x02};
-const uint16_t mask_bit[16] = {
-    0x01, 0x01, 0x01, 0x01,
-    0x01, 0x01, 0x01, 0x01,
-    0x01, 0x01, 0x01, 0x01,
-    0x01, 0x01, 0x01, 0x01};
-const uint16_t multiplier[16] = {
-    0x1b, 0x1b, 0x1b, 0x1b,
-    0x1b, 0x1b, 0x1b, 0x1b,
-    0x1b, 0x1b, 0x1b, 0x1b,
-    0x1b, 0x1b, 0x1b, 0x1b};
 
 //
 __m256i avx_mix_column(__m256i state)
@@ -374,4 +377,4 @@ void avx_aes_encode(uint8_t *in, uint8_t *out, uint8_t *w)
     get_avx_output(avx_state_final, out);
 }
 
-// 95 e6 5a 95 f3 95 4f 95 00 95 00 95 00 95 00 95 
+// 95 e6 5a 95 f3 95 4f 95 00 95 00 95 00 95 00 95
