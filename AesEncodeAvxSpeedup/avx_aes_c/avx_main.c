@@ -1,0 +1,58 @@
+#include <stdio.h>
+#include "avx_aes.h"
+
+int *run(uint8_t in[16]){
+	/* 128 bit key */
+	uint8_t key[] = {
+		0x00, 0x01, 0x02, 0x03,
+		0x04, 0x05, 0x06, 0x07,
+		0x08, 0x09, 0x0a, 0x0b,
+		0x0c, 0x0d, 0x0e, 0x0f};
+
+	//input
+//	uint8_t in[] = {
+//		0x00, 0x11, 0x22, 0x33,
+//		0x44, 0x55, 0x66, 0x77,
+//		0x88, 0x99, 0xaa, 0xbb,
+//		0xcc, 0xdd, 0xee, 0xff};
+
+	//output
+	uint8_t out[16]; // 128
+
+	uint8_t i;
+
+	// expanded key
+	uint8_t *w;
+	w = aes_init(sizeof(key)); //16bytes , Nb = 4; Nk = 4; Nr = 10;
+	aes_key_expansion(key, w);
+
+	//
+	printf("Plaintext message:\n");
+	for (i = 0; i < 4; i++)
+	{
+		printf("%02d %02d %02d %02d ", in[4 * i + 0], in[4 * i + 1], in[4 * i + 2], in[4 * i + 3]);
+	}
+	printf("\n");
+	//
+	avx_aes_encode(in, out, w);
+
+	printf("Ciphered message:\n");
+	for (i = 0; i < 4; i++)
+	{
+		printf("%02x %02x %02x %02x ", out[4 * i + 0], out[4 * i + 1], out[4 * i + 2], out[4 * i + 3]);
+	}
+
+	printf("\n");
+	//
+	free(w);
+
+	return &out;
+}
+
+//
+//int main()
+//{
+//
+//	return 0;
+//}
+//95 e6 5a 95 f3 95 4f 95 00 95 00 95 00 95 00 95
