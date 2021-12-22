@@ -9,13 +9,6 @@ int *run(uint8_t in[16]){
 		0x08, 0x09, 0x0a, 0x0b,
 		0x0c, 0x0d, 0x0e, 0x0f};
 
-	//input
-//	uint8_t in[] = {
-//		0x00, 0x11, 0x22, 0x33,
-//		0x44, 0x55, 0x66, 0x77,
-//		0x88, 0x99, 0xaa, 0xbb,
-//		0xcc, 0xdd, 0xee, 0xff};
-
 	//output
 	uint8_t out[16]; // 128
 
@@ -33,7 +26,7 @@ int *run(uint8_t in[16]){
 		printf("%02d %02d %02d %02d ", in[4 * i + 0], in[4 * i + 1], in[4 * i + 2], in[4 * i + 3]);
 	}
 	printf("\n");
-	//
+	// 
 	avx_aes_encode(in, out, w);
 
 	printf("Ciphered message:\n");
@@ -49,10 +42,5 @@ int *run(uint8_t in[16]){
 	return &out;
 }
 
-//
-//int main()
-//{
-//
-//	return 0;
-//}
+
 //95 e6 5a 95 f3 95 4f 95 00 95 00 95 00 95 00 95
