@@ -370,8 +370,8 @@ uint8_t *get_round_key(int i, uint8_t *expanded_key)
 __m256i avx_set_round_key(int i, uint8_t *expanded_key)
 {
     __m256i res = avx_set_data_u8(get_round_key(i, expanded_key));
-    printf("avx_set_round_key:\n");
-    avx_print_u16(&res);
+    // printf("avx_set_round_key:\n");
+    // avx_print_u16(&res);
     return res;
 }
 
@@ -403,19 +403,10 @@ __m256i avx_sub_bytes(__m256i in_state)
             // 拿出低八位有效数据去查表
             state[4 * i + j] = (uint16_t)getSBoxValue(temp_state[i + 4 * j]);
 
-    // for (int i = 0; i < 16; ++i)
-    // {
-    //     if (i % 4 == 0)
-    //         printf("\n");
-    //     printf("%02x\t", state[i]);
-    // }
-    // printf("\n");
-
     __m256i res = avx_set_data_u16(state);
 
     printf("avx_sub_bytes:\n");
     avx_print_u16(&res);
-
     printf("out avx_sub_bytes...\n");
     return res;
 }
@@ -436,7 +427,6 @@ __m256i avx_shift_rows(__m256i input)
 
     printf("avx_shift_rows:\n");
     avx_print_u16(&res);
-    //
     printf("out avx_shift_rows...\n");
 
     return res;
@@ -471,7 +461,6 @@ __m256i avx_update_state(__m256i in_state)
 
 __m256i avx_mix_colomn_helper(__m256i state, __m256i TT)
 {
-    // __m256i avx_T = avx_set_data_u16(p_T);
     __m256i avx_mask_bit = avx_set_data_u16(p_mask_bit);
     __m256i avx_mask_int16 = avx_set_data_u16(p_mask_int16);
     __m256i avx_multiplier = avx_set_data_u16(p_multiplier);
