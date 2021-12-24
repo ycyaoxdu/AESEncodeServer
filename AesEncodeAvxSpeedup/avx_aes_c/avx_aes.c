@@ -343,7 +343,7 @@ __m256i avx_set_data_u8(uint8_t *in)
         in[4], 0x00, in[5], 0x00,
         in[6], 0x00, in[7], 0x00,
         in[8], 0x00, in[9], 0x00,
-        in[10], 0x00, in[11], 0x00,git 
+        in[10], 0x00, in[11], 0x00,
         in[12], 0x00, in[13], 0x00,
         in[14], 0x00, in[15], 0x00};
     return _mm256_load_si256((const __m256i *)input);
