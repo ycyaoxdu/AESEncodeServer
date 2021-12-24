@@ -39,20 +39,45 @@ void aes_key_expansion(uint8_t *key, uint8_t *w);
 /*
     avx speed-up function
 */
+//
+/*
+    set round key using given i. 
+*/
 __m256i avx_set_round_key(int i, uint8_t *expanded_key);
+
+/*  
+    a. sub bytes
+*/
+__m256i avx_sub_bytes(__m256i in_state);
+/*
+    b. shift rows
+*/
+__m256i avx_shift_rows(__m256i input);
+/*
+    c. mix colomn
+*/
+__m256i avx_mix_column(__m256i state);
+/*
+    d. add round key
+*/
 __m256i avx_add_round_key(__m256i state, __m256i round_key);
 
-__m256i avx_sub_bytes(__m256i in_state);
-__m256i avx_shift_rows(__m256i input);
-__m256i avx_mix_column(__m256i state);
-
+/*
+    1. add init key 
+*/
+/*
+    2. aes loop includes : a b c d
+*/
 __m256i avx_aes_loop(__m256i state, __m256i round_key);
+/*
+    3. aes final includes : a b d
+*/
 __m256i avx_aes_final(__m256i state, __m256i round_key);
 
 void avx_aes_encode(uint8_t *in, uint8_t *out, uint8_t *w);
 
 // helper
 __m256i avx_update_state(__m256i in_state);
-void *get_avx_output(__m256i message, uint8_t *out);
+void get_avx_output(__m256i *message, uint8_t *out);
 
 #endif
