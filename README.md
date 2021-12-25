@@ -15,6 +15,6 @@ $ ./AESEncodeServer
 
 ## api
 ```
-GET http://localhost:8080/encode/<your message>
-GET http://localhost:8080/decode/<your message>
+GET http://localhost:8086/encode/<your message>
+GET http://localhost:8086/decode/<your message>
 ```

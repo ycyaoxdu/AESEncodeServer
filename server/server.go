@@ -9,5 +9,5 @@ import (
 func RunServer() {
 	r := gin.Default()
 	router.SetRouter(r)
-	r.Run() // listen and serve on 0.0.0.0:8080 (for windows "localhost:8080")
+	r.Run(":8086") // listen and serve on 0.0.0.0:8080 (for windows "localhost:8080")
 }
