@@ -1,0 +1,1540 @@
+Plaintext message:
+00 17 34 51 68 85 102 119 136 153 170 187 204 221 238 255 
+in avx_add_round_key...
+avx_add_round_key:
+ 00, 10, 20, 30,
+ 40, 50, 60, 70,
+ 80, 90, a0, b0,
+ c0, d0, e0, f0,
+
+out avx_add_round_key...
+------------------------------------------------------------------------
+state:
+ 00, 10, 20, 30,
+ 40, 50, 60, 70,
+ 80, 90, a0, b0,
+ c0, d0, e0, f0,
+
+round_key:
+ d6, aa, 74, fd,
+ d2, af, 72, fa,
+ da, a6, 78, f1,
+ d6, ab, 76, fe,
+
+in avx_sub_bytes...
+avx_sub_bytes:
+ 63, 09, cd, ba,
+ ca, 53, 60, 70,
+ b7, d0, e0, e1,
+ 04, 51, e7, 8c,
+
+out avx_sub_bytes...
+in avx_shift_rows...
+avx_shift_rows:
+ 63, 09, cd, ba,
+ 53, 60, 70, ca,
+ e0, e1, b7, d0,
+ 8c, 04, 51, e7,
+
+out avx_shift_rows...
+in avx_mix_column...
+avx_mix_colomn_helper:
+ c6, 13, 9b, 74,
+ a7, c0, e0, 94,
+ c0, c3, 6f, a1,
+ 19, 08, a3, cf,
+
+avx_mix_colomn_helper:
+ a7, c0, e0, 95,
+ c1, c2, 6f, a0,
+ 18, 08, a3, cf,
+ c7, 13, 9b, 75,
+
+avx_mix_colomn_helper:
+ c0, c3, 6f, a1,
+ 19, 08, a3, cf,
+ c6, 13, 9b, 74,
+ a7, c0, e0, 94,
+
+avx_mix_colomn_helper:
+ 18, 08, a3, cf,
+ c7, 13, 9b, 75,
+ a7, c0, e0, 95,
+ c1, c2, 6f, a0,
+
+avx_mix_colomn_add_helper:
+ b9, 18, b7, 8f,
+ b8, 19, b7, 8e,
+ b9, 18, b7, 8f,
+ b8, 19, b7, 8e,
+
+avx_mix_colomn_helper:
+ 12, 9a, 74, c7,
+ c0, e0, 95, a7,
+ c3, 6f, a1, c1,
+ 08, a3, cf, 19,
+
+avx_mix_colomn_helper:
+ c0, e0, 94, a6,
+ c3, 6e, a0, c0,
+ 08, a2, ce, 18,
+ 13, 9b, 75, c7,
+
+avx_mix_colomn_helper:
+ c3, 6f, a1, c1,
+ 08, a3, cf, 19,
+ 12, 9a, 74, c7,
+ c0, e0, 95, a7,
+
+avx_mix_colomn_helper:
+ 08, a2, ce, 18,
+ 13, 9b, 75, c7,
+ c0, e0, 94, a6,
+ c3, 6e, a0, c0,
+
+avx_mix_colomn_add_helper:
+ 19, b7, 8f, b8,
+ 18, b6, 8f, b9,
+ 19, b7, 8f, b8,
+ 18, b6, 8f, b9,
+
+avx_mix_colomn_helper:
+ 9b, 75, c7, 13,
+ e0, 95, a7, c0,
+ 6f, a0, c1, c2,
+ a3, cf, 18, 08,
+
+avx_mix_colomn_helper:
+ e0, 94, a7, c0,
+ 6f, a1, c0, c3,
+ a3, cf, 19, 08,
+ 9b, 74, c6, 13,
+
+avx_mix_colomn_helper:
+ 6f, a0, c1, c2,
+ a3, cf, 18, 08,
+ 9b, 75, c7, 13,
+ e0, 95, a7, c0,
+
+avx_mix_colomn_helper:
+ a3, cf, 19, 08,
+ 9b, 74, c6, 13,
+ e0, 94, a7, c0,
+ 6f, a1, c0, c3,
+
+avx_mix_colomn_add_helper:
+ b7, 8e, b8, 19,
+ b7, 8f, b9, 18,
+ b7, 8e, b8, 19,
+ b7, 8f, b9, 18,
+
+avx_mix_colomn_helper:
+ 75, c7, 13, 9b,
+ 94, a6, c0, e0,
+ a0, c0, c3, 6e,
+ ce, 18, 08, a2,
+
+avx_mix_colomn_helper:
+ 95, a7, c0, e0,
+ a1, c1, c3, 6f,
+ cf, 19, 08, a3,
+ 74, c7, 12, 9a,
+
+avx_mix_colomn_helper:
+ a0, c0, c3, 6e,
+ ce, 18, 08, a2,
+ 75, c7, 13, 9b,
+ 94, a6, c0, e0,
+
+avx_mix_colomn_helper:
+ cf, 19, 08, a3,
+ 74, c7, 12, 9a,
+ 95, a7, c0, e0,
+ a1, c1, c3, 6f,
+
+avx_mix_colomn_add_helper:
+ 8f, b9, 18, b6,
+ 8f, b8, 19, b7,
+ 8f, b9, 18, b6,
+ 8f, b8, 19, b7,
+
+avx_mix_column:
+ b9, 19, b7, 8f,
+ b8, 19, b6, 8f,
+ b8, 18, b7, 8f,
+ b9, 18, b7, 8e,
+
+out avx_mix_column...
+in avx_add_round_key...
+avx_add_round_key:
+ 6f, b3, c3, 72,
+ 6a, b6, c4, 75,
+ 62, be, cf, 7e,
+ 6f, b3, c1, 70,
+
+out avx_add_round_key...
+------------------------------------------------------------------------
+state:
+ 6f, b3, c3, 72,
+ 6a, b6, c4, 75,
+ 62, be, cf, 7e,
+ 6f, b3, c1, 70,
+
+round_key:
+ b6, 92, cf, 0b,
+ 64, 3d, bd, f1,
+ be, 9b, c5, 00,
+ 68, 30, b3, fe,
+
+in avx_sub_bytes...
+avx_sub_bytes:
+ a8, 02, aa, a8,
+ 6d, 4e, ae, 6d,
+ 2e, 1c, 8a, 78,
+ 40, 9d, f3, 51,
+
+out avx_sub_bytes...
+in avx_shift_rows...
+avx_shift_rows:
+ a8, 02, aa, a8,
+ 4e, ae, 6d, 6d,
+ 8a, 78, 2e, 1c,
+ 51, 40, 9d, f3,
+
+out avx_shift_rows...
+in avx_mix_column...
+avx_mix_colomn_helper:
+ 51, 04, 54, 50,
+ 9c, 5d, db, db,
+ 14, f0, 5c, 38,
+ a3, 80, 3b, e7,
+
+avx_mix_colomn_helper:
+ 9c, 5c, db, da,
+ 15, f0, 5c, 38,
+ a3, 80, 3a, e7,
+ 50, 04, 55, 51,
+
+avx_mix_colomn_helper:
+ 14, f0, 5c, 38,
+ a3, 80, 3b, e7,
+ 51, 04, 54, 50,
+ 9c, 5d, db, db,
+
+avx_mix_colomn_helper:
+ a3, 80, 3a, e7,
+ 50, 04, 55, 51,
+ 9c, 5c, db, da,
+ 15, f0, 5c, 38,
+
+avx_mix_colomn_add_helper:
+ 7a, 28, e9, 55,
+ 7a, 29, e9, 55,
+ 7a, 28, e9, 55,
+ 7a, 29, e9, 55,
+
+avx_mix_colomn_helper:
+ 04, 55, 50, 50,
+ 5c, da, db, 9c,
+ f0, 5c, 38, 15,
+ 80, 3b, e7, a2,
+
+avx_mix_colomn_helper:
+ 5d, db, db, 9c,
+ f0, 5c, 38, 14,
+ 80, 3b, e6, a3,
+ 04, 54, 51, 51,
+
+avx_mix_colomn_helper:
+ f0, 5c, 38, 15,
+ 80, 3b, e7, a2,
+ 04, 55, 50, 50,
+ 5c, da, db, 9c,
+
+avx_mix_colomn_helper:
+ 80, 3b, e6, a3,
+ 04, 54, 51, 51,
+ 5d, db, db, 9c,
+ f0, 5c, 38, 14,
+
+avx_mix_colomn_add_helper:
+ 29, e9, 55, 7a,
+ 28, e9, 55, 7b,
+ 29, e9, 55, 7a,
+ 28, e9, 55, 7b,
+
+avx_mix_colomn_helper:
+ 55, 51, 50, 04,
+ db, da, 9c, 5c,
+ 5c, 38, 15, f0,
+ 3a, e7, a3, 80,
+
+avx_mix_colomn_helper:
+ db, db, 9c, 5d,
+ 5c, 38, 14, f0,
+ 3b, e7, a3, 80,
+ 54, 50, 51, 04,
+
+avx_mix_colomn_helper:
+ 5c, 38, 15, f0,
+ 3a, e7, a3, 80,
+ 55, 51, 50, 04,
+ db, da, 9c, 5c,
+
+avx_mix_colomn_helper:
+ 3b, e7, a3, 80,
+ 54, 50, 51, 04,
+ db, db, 9c, 5d,
+ 5c, 38, 14, f0,
+
+avx_mix_colomn_add_helper:
+ e9, 55, 7a, 29,
+ e9, 55, 7a, 28,
+ e9, 55, 7a, 29,
+ e9, 55, 7a, 28,
+
+avx_mix_colomn_helper:
+ 51, 51, 04, 54,
+ db, 9c, 5d, db,
+ 38, 14, f0, 5c,
+ e6, a3, 80, 3b,
+
+avx_mix_colomn_helper:
+ db, 9c, 5c, da,
+ 38, 15, f0, 5c,
+ e7, a2, 80, 3b,
+ 50, 50, 04, 55,
+
+avx_mix_colomn_helper:
+ 38, 14, f0, 5c,
+ e6, a3, 80, 3b,
+ 51, 51, 04, 54,
+ db, 9c, 5d, db,
+
+avx_mix_colomn_helper:
+ e7, a2, 80, 3b,
+ 50, 50, 04, 55,
+ db, 9c, 5c, da,
+ 38, 15, f0, 5c,
+
+avx_mix_colomn_add_helper:
+ 55, 7b, 28, e9,
+ 55, 7a, 29, e9,
+ 55, 7b, 28, e9,
+ 55, 7a, 29, e9,
+
+avx_mix_column:
+ 7a, 29, e9, 55,
+ 7a, 29, e9, 55,
+ 7a, 28, e9, 55,
+ 7b, 28, e9, 55,
+
+out avx_mix_column...
+in avx_add_round_key...
+avx_add_round_key:
+ cc, bb, 26, 5e,
+ 1e, 14, 54, a4,
+ c4, b3, 2c, 55,
+ 13, 18, 5a, ab,
+
+out avx_add_round_key...
+------------------------------------------------------------------------
+state:
+ cc, bb, 26, 5e,
+ 1e, 14, 54, a4,
+ c4, b3, 2c, 55,
+ 13, 18, 5a, ab,
+
+round_key:
+ b6, ff, 74, 4e,
+ d2, c2, c9, bf,
+ 6c, 59, 0c, bf,
+ 04, 69, bf, 41,
+
+in avx_sub_bytes...
+avx_sub_bytes:
+ 4b, 72, 1c, 7d,
+ ea, fa, 6d, ad,
+ f7, 20, 71, be,
+ 58, 49, fc, 62,
+
+out avx_sub_bytes...
+in avx_shift_rows...
+avx_shift_rows:
+ 4b, 72, 1c, 7d,
+ fa, 6d, ad, ea,
+ 71, be, f7, 20,
+ 62, 58, 49, fc,
+
+out avx_shift_rows...
+in avx_mix_column...
+avx_mix_colomn_helper:
+ 96, e4, 38, fb,
+ f4, da, 5a, d4,
+ e3, 7c, ef, 40,
+ c4, b0, 93, f9,
+
+avx_mix_colomn_helper:
+ f5, db, 5b, d5,
+ e2, 7d, ef, 40,
+ c4, b0, 93, f8,
+ 97, e4, 38, fb,
+
+avx_mix_colomn_helper:
+ e3, 7c, ef, 40,
+ c4, b0, 93, f9,
+ 96, e4, 38, fb,
+ f4, da, 5a, d4,
+
+avx_mix_colomn_helper:
+ c4, b0, 93, f8,
+ 97, e4, 38, fb,
+ f5, db, 5b, d5,
+ e2, 7d, ef, 40,
+
+avx_mix_colomn_add_helper:
+ 44, f3, 1f, 96,
+ 45, f3, 1e, 96,
+ 44, f3, 1f, 96,
+ 45, f3, 1e, 96,
+
+avx_mix_colomn_helper:
+ e4, 38, fb, 97,
+ db, 5b, d5, f4,
+ 7c, ef, 40, e3,
+ b0, 93, f8, c4,
+
+avx_mix_colomn_helper:
+ db, 5b, d4, f5,
+ 7d, ee, 40, e3,
+ b0, 92, f9, c4,
+ e4, 38, fa, 97,
+
+avx_mix_colomn_helper:
+ 7c, ef, 40, e3,
+ b0, 93, f8, c4,
+ e4, 38, fb, 97,
+ db, 5b, d5, f4,
+
+avx_mix_colomn_helper:
+ b0, 92, f9, c4,
+ e4, 38, fa, 97,
+ db, 5b, d4, f5,
+ 7d, ee, 40, e3,
+
+avx_mix_colomn_add_helper:
+ f3, 1e, 96, 45,
+ f2, 1e, 97, 44,
+ f3, 1e, 96, 45,
+ f2, 1e, 97, 44,
+
+avx_mix_colomn_helper:
+ 38, fb, 97, e4,
+ 5b, d5, f5, db,
+ ef, 40, e2, 7d,
+ 93, f8, c4, b0,
+
+avx_mix_colomn_helper:
+ 5a, d4, f4, da,
+ ef, 40, e3, 7c,
+ 93, f9, c4, b0,
+ 38, fb, 96, e4,
+
+avx_mix_colomn_helper:
+ ef, 40, e2, 7d,
+ 93, f8, c4, b0,
+ 38, fb, 97, e4,
+ 5b, d5, f5, db,
+
+avx_mix_colomn_helper:
+ 93, f9, c4, b0,
+ 38, fb, 96, e4,
+ 5a, d4, f4, da,
+ ef, 40, e3, 7c,
+
+avx_mix_colomn_add_helper:
+ 1e, 96, 45, f3,
+ 1f, 96, 44, f3,
+ 1e, 96, 45, f3,
+ 1f, 96, 44, f3,
+
+avx_mix_colomn_helper:
+ fa, 97, e4, 38,
+ d4, f5, db, 5b,
+ 40, e3, 7d, ee,
+ f9, c4, b0, 92,
+
+avx_mix_colomn_helper:
+ d5, f4, db, 5b,
+ 40, e3, 7c, ef,
+ f8, c4, b0, 93,
+ fb, 97, e4, 38,
+
+avx_mix_colomn_helper:
+ 40, e3, 7d, ee,
+ f9, c4, b0, 92,
+ fa, 97, e4, 38,
+ d4, f5, db, 5b,
+
+avx_mix_colomn_helper:
+ f8, c4, b0, 93,
+ fb, 97, e4, 38,
+ d5, f4, db, 5b,
+ 40, e3, 7c, ef,
+
+avx_mix_colomn_add_helper:
+ 97, 44, f2, 1e,
+ 96, 45, f3, 1e,
+ 97, 44, f2, 1e,
+ 96, 45, f3, 1e,
+
+avx_mix_column:
+ 44, f3, 1e, 97,
+ 45, f3, 1e, 96,
+ 45, f2, 1f, 96,
+ 44, f3, 1e, 96,
+
+out avx_mix_column...
+in avx_add_round_key...
+avx_add_round_key:
+ f2, 0c, 6a, d9,
+ 97, 31, d7, 29,
+ 29, ab, 13, 29,
+ 40, 9a, a1, d7,
+
+out avx_add_round_key...
+------------------------------------------------------------------------
+state:
+ f2, 0c, 6a, d9,
+ 97, 31, d7, 29,
+ 29, ab, 13, 29,
+ 40, 9a, a1, d7,
+
+round_key:
+ 47, f7, f7, bc,
+ 95, 35, 3e, 03,
+ f9, 6c, 32, bc,
+ fd, 05, 8d, fd,
+
+in avx_sub_bytes...
+avx_sub_bytes:
+ 89, 88, a5, 09,
+ fe, c7, 62, b8,
+ 02, 0e, 7d, 32,
+ 35, a5, a5, 0e,
+
+out avx_sub_bytes...
+in avx_shift_rows...
+avx_shift_rows:
+ 89, 88, a5, 09,
+ c7, 62, b8, fe,
+ 7d, 32, 02, 0e,
+ 0e, 35, a5, a5,
+
+out avx_shift_rows...
+in avx_mix_column...
+avx_mix_colomn_helper:
+ 13, 11, 4b, 13,
+ 8f, c4, 71, fc,
+ fb, 64, 04, 1c,
+ 1c, 6b, 4b, 4b,
+
+avx_mix_colomn_helper:
+ 8e, c4, 70, fd,
+ fa, 64, 04, 1c,
+ 1c, 6a, 4a, 4b,
+ 13, 10, 4b, 13,
+
+avx_mix_colomn_helper:
+ fb, 64, 04, 1c,
+ 1c, 6b, 4b, 4b,
+ 13, 11, 4b, 13,
+ 8f, c4, 71, fc,
+
+avx_mix_colomn_helper:
+ 1c, 6a, 4a, 4b,
+ 13, 10, 4b, 13,
+ 8e, c4, 70, fd,
+ fa, 64, 04, 1c,
+
+avx_mix_colomn_add_helper:
+ 7a, db, 75, b9,
+ 7a, db, 75, b8,
+ 7a, db, 75, b9,
+ 7a, db, 75, b8,
+
+avx_mix_colomn_helper:
+ 11, 4a, 13, 13,
+ c4, 71, fd, 8f,
+ 64, 04, 1c, fb,
+ 6b, 4b, 4b, 1c,
+
+avx_mix_colomn_helper:
+ c4, 70, fc, 8f,
+ 64, 04, 1c, fb,
+ 6b, 4b, 4a, 1c,
+ 10, 4b, 12, 12,
+
+avx_mix_colomn_helper:
+ 64, 04, 1c, fb,
+ 6b, 4b, 4b, 1c,
+ 11, 4a, 13, 13,
+ c4, 71, fd, 8f,
+
+avx_mix_colomn_helper:
+ 6b, 4b, 4a, 1c,
+ 10, 4b, 12, 12,
+ c4, 70, fc, 8f,
+ 64, 04, 1c, fb,
+
+avx_mix_colomn_add_helper:
+ da, 75, b9, 7b,
+ db, 75, b8, 7a,
+ da, 75, b9, 7b,
+ db, 75, b8, 7a,
+
+avx_mix_colomn_helper:
+ 4b, 13, 13, 10,
+ 70, fd, 8e, c4,
+ 04, 1c, fa, 64,
+ 4a, 4b, 1c, 6a,
+
+avx_mix_colomn_helper:
+ 71, fc, 8f, c4,
+ 04, 1c, fb, 64,
+ 4b, 4b, 1c, 6b,
+ 4b, 13, 13, 11,
+
+avx_mix_colomn_helper:
+ 04, 1c, fa, 64,
+ 4a, 4b, 1c, 6a,
+ 4b, 13, 13, 10,
+ 70, fd, 8e, c4,
+
+avx_mix_colomn_helper:
+ 4b, 4b, 1c, 6b,
+ 4b, 13, 13, 11,
+ 71, fc, 8f, c4,
+ 04, 1c, fb, 64,
+
+avx_mix_colomn_add_helper:
+ 75, b8, 7a, db,
+ 75, b9, 7a, db,
+ 75, b8, 7a, db,
+ 75, b9, 7a, db,
+
+avx_mix_colomn_helper:
+ 12, 12, 10, 4b,
+ fc, 8f, c4, 70,
+ 1c, fb, 64, 04,
+ 4a, 1c, 6b, 4b,
+
+avx_mix_colomn_helper:
+ fd, 8f, c4, 71,
+ 1c, fb, 64, 04,
+ 4b, 1c, 6b, 4b,
+ 13, 13, 11, 4a,
+
+avx_mix_colomn_helper:
+ 1c, fb, 64, 04,
+ 4a, 1c, 6b, 4b,
+ 12, 12, 10, 4b,
+ fc, 8f, c4, 70,
+
+avx_mix_colomn_helper:
+ 4b, 1c, 6b, 4b,
+ 13, 13, 11, 4a,
+ fd, 8f, c4, 71,
+ 1c, fb, 64, 04,
+
+avx_mix_colomn_add_helper:
+ b8, 7a, db, 75,
+ b9, 7b, da, 75,
+ b8, 7a, db, 75,
+ b9, 7b, da, 75,
+
+avx_mix_column:
+ 7a, da, 75, b8,
+ 7b, db, 75, b9,
+ 7a, db, 75, b9,
+ 7a, db, 75, b8,
+
+out avx_mix_column...
+in avx_add_round_key...
+avx_add_round_key:
+ 3d, 2d, 82, 04,
+ ee, ee, 4b, ba,
+ 83, b7, 47, 05,
+ 87, de, f8, 45,
+
+out avx_add_round_key...
+------------------------------------------------------------------------
+state:
+ 3d, 2d, 82, 04,
+ ee, ee, 4b, ba,
+ 83, b7, 47, 05,
+ 87, de, f8, 45,
+
+round_key:
+ 3c, aa, a3, e8,
+ a9, 9f, 9d, eb,
+ 50, f3, af, 57,
+ ad, f6, 22, aa,
+
+in avx_sub_bytes...
+avx_sub_bytes:
+ 27, 28, ec, 17,
+ d8, 28, a9, 1d,
+ 13, b3, a0, 41,
+ f2, f4, 6b, 6e,
+
+out avx_sub_bytes...
+in avx_shift_rows...
+avx_shift_rows:
+ 27, 28, ec, 17,
+ 28, a9, 1d, d8,
+ a0, 41, 13, b3,
+ 6e, f2, f4, 6b,
+
+out avx_shift_rows...
+in avx_mix_column...
+avx_mix_colomn_helper:
+ 4e, 50, d8, 2f,
+ 50, 53, 3b, b0,
+ 40, 83, 26, 66,
+ dc, e4, e8, d6,
+
+avx_mix_colomn_helper:
+ 50, 53, 3b, b1,
+ 41, 83, 27, 67,
+ dc, e5, e9, d7,
+ 4f, 50, d9, 2f,
+
+avx_mix_colomn_helper:
+ 40, 83, 26, 66,
+ dc, e4, e8, d6,
+ 4e, 50, d8, 2f,
+ 50, 53, 3b, b0,
+
+avx_mix_colomn_helper:
+ dc, e5, e9, d7,
+ 4f, 50, d9, 2f,
+ 50, 53, 3b, b1,
+ 41, 83, 27, 67,
+
+avx_mix_colomn_add_helper:
+ 82, 65, 2c, 2f,
+ 82, 64, 2d, 2e,
+ 82, 65, 2c, 2f,
+ 82, 64, 2d, 2e,
+
+avx_mix_colomn_helper:
+ 50, d9, 2f, 4f,
+ 53, 3a, b1, 50,
+ 83, 27, 67, 41,
+ e5, e8, d7, dc,
+
+avx_mix_colomn_helper:
+ 52, 3b, b0, 50,
+ 82, 27, 67, 40,
+ e4, e9, d7, dc,
+ 50, d8, 2e, 4f,
+
+avx_mix_colomn_helper:
+ 83, 27, 67, 41,
+ e5, e8, d7, dc,
+ 50, d9, 2f, 4f,
+ 53, 3a, b1, 50,
+
+avx_mix_colomn_helper:
+ e4, e9, d7, dc,
+ 50, d8, 2e, 4f,
+ 52, 3b, b0, 50,
+ 82, 27, 67, 40,
+
+avx_mix_colomn_add_helper:
+ 65, 2c, 2f, 82,
+ 64, 2d, 2f, 83,
+ 65, 2c, 2f, 82,
+ 64, 2d, 2f, 83,
+
+avx_mix_colomn_helper:
+ d9, 2f, 4f, 50,
+ 3b, b1, 50, 53,
+ 27, 67, 41, 83,
+ e9, d7, dc, e5,
+
+avx_mix_colomn_helper:
+ 3b, b0, 50, 53,
+ 26, 66, 40, 83,
+ e8, d6, dc, e4,
+ d8, 2f, 4e, 50,
+
+avx_mix_colomn_helper:
+ 27, 67, 41, 83,
+ e9, d7, dc, e5,
+ d9, 2f, 4f, 50,
+ 3b, b1, 50, 53,
+
+avx_mix_colomn_helper:
+ e8, d6, dc, e4,
+ d8, 2f, 4e, 50,
+ 3b, b0, 50, 53,
+ 26, 66, 40, 83,
+
+avx_mix_colomn_add_helper:
+ 2d, 2e, 82, 64,
+ 2c, 2f, 82, 65,
+ 2d, 2e, 82, 64,
+ 2c, 2f, 82, 65,
+
+avx_mix_colomn_helper:
+ 2e, 4f, 50, d8,
+ b0, 50, 52, 3b,
+ 67, 40, 82, 27,
+ d7, dc, e4, e9,
+
+avx_mix_colomn_helper:
+ b1, 50, 53, 3a,
+ 67, 41, 83, 27,
+ d7, dc, e5, e8,
+ 2f, 4f, 50, d9,
+
+avx_mix_colomn_helper:
+ 67, 40, 82, 27,
+ d7, dc, e4, e9,
+ 2e, 4f, 50, d8,
+ b0, 50, 52, 3b,
+
+avx_mix_colomn_helper:
+ d7, dc, e5, e8,
+ 2f, 4f, 50, d9,
+ b1, 50, 53, 3a,
+ 67, 41, 83, 27,
+
+avx_mix_colomn_add_helper:
+ 2f, 83, 64, 2d,
+ 2f, 82, 65, 2c,
+ 2f, 83, 64, 2d,
+ 2f, 82, 65, 2c,
+
+avx_mix_column:
+ 82, 65, 2d, 2f,
+ 82, 64, 2d, 2f,
+ 82, 64, 2c, 2f,
+ 83, 65, 2c, 2e,
+
+out avx_mix_column...
+in avx_add_round_key...
+avx_add_round_key:
+ be, cf, 8e, c7,
+ 2b, fb, b0, c4,
+ d2, 97, 83, 78,
+ 2e, 93, 0e, 84,
+
+out avx_add_round_key...
+------------------------------------------------------------------------
+state:
+ be, cf, 8e, c7,
+ 2b, fb, b0, c4,
+ d2, 97, 83, 78,
+ 2e, 93, 0e, 84,
+
+round_key:
+ 5e, 39, 0f, 7d,
+ f7, a6, 92, 96,
+ a7, 55, 3d, c1,
+ 0a, a3, 1f, 6b,
+
+in avx_sub_bytes...
+avx_sub_bytes:
+ ae, f1, b5, 31,
+ 8a, 0f, 88, dc,
+ 19, e7, ec, ab,
+ c6, 1c, bc, 5f,
+
+out avx_sub_bytes...
+in avx_shift_rows...
+avx_shift_rows:
+ ae, f1, b5, 31,
+ 0f, 88, dc, 8a,
+ ec, ab, 19, e7,
+ 5f, c6, 1c, bc,
+
+out avx_shift_rows...
+in avx_mix_column...
+avx_mix_colomn_helper:
+ 5d, e2, 6b, 63,
+ 1f, 11, b9, 14,
+ d8, 57, 32, ce,
+ bf, 8c, 38, 79,
+
+avx_mix_colomn_helper:
+ 1f, 10, b8, 15,
+ d9, 56, 33, cf,
+ bf, 8d, 38, 78,
+ 5c, e3, 6b, 63,
+
+avx_mix_colomn_helper:
+ d8, 57, 32, ce,
+ bf, 8c, 38, 79,
+ 5d, e2, 6b, 63,
+ 1f, 11, b9, 14,
+
+avx_mix_colomn_helper:
+ bf, 8d, 38, 78,
+ 5c, e3, 6b, 63,
+ 1f, 10, b8, 15,
+ d9, 56, 33, cf,
+
+avx_mix_colomn_add_helper:
+ 25, 28, d9, c0,
+ 25, 28, d9, c1,
+ 25, 28, d9, c0,
+ 25, 28, d9, c1,
+
+avx_mix_colomn_helper:
+ e3, 6a, 63, 5c,
+ 10, b9, 15, 1f,
+ 57, 33, cf, d9,
+ 8d, 38, 78, be,
+
+avx_mix_colomn_helper:
+ 11, b8, 14, 1e,
+ 57, 33, cf, d8,
+ 8c, 38, 79, bf,
+ e3, 6b, 62, 5d,
+
+avx_mix_colomn_helper:
+ 57, 33, cf, d9,
+ 8d, 38, 78, be,
+ e3, 6a, 63, 5c,
+ 10, b9, 15, 1f,
+
+avx_mix_colomn_helper:
+ 8c, 38, 79, bf,
+ e3, 6b, 62, 5d,
+ 11, b8, 14, 1e,
+ 57, 33, cf, d8,
+
+avx_mix_colomn_add_helper:
+ 29, d9, c1, 24,
+ 29, d9, c0, 24,
+ 29, d9, c1, 24,
+ 29, d9, c0, 24,
+
+avx_mix_colomn_helper:
+ 6b, 63, 5c, e3,
+ b8, 15, 1f, 10,
+ 33, cf, d9, 56,
+ 38, 78, bf, 8d,
+
+avx_mix_colomn_helper:
+ b9, 14, 1f, 11,
+ 32, ce, d8, 57,
+ 38, 79, bf, 8c,
+ 6b, 63, 5d, e2,
+
+avx_mix_colomn_helper:
+ 33, cf, d9, 56,
+ 38, 78, bf, 8d,
+ 6b, 63, 5c, e3,
+ b8, 15, 1f, 10,
+
+avx_mix_colomn_helper:
+ 38, 79, bf, 8c,
+ 6b, 63, 5d, e2,
+ b9, 14, 1f, 11,
+ 32, ce, d8, 57,
+
+avx_mix_colomn_add_helper:
+ d9, c1, 25, 28,
+ d9, c0, 25, 28,
+ d9, c1, 25, 28,
+ d9, c0, 25, 28,
+
+avx_mix_colomn_helper:
+ 62, 5d, e3, 6b,
+ 14, 1e, 11, b8,
+ cf, d8, 57, 33,
+ 79, bf, 8c, 38,
+
+avx_mix_colomn_helper:
+ 15, 1f, 10, b9,
+ cf, d9, 57, 33,
+ 78, be, 8d, 38,
+ 63, 5c, e3, 6a,
+
+avx_mix_colomn_helper:
+ cf, d8, 57, 33,
+ 79, bf, 8c, 38,
+ 62, 5d, e3, 6b,
+ 14, 1e, 11, b8,
+
+avx_mix_colomn_helper:
+ 78, be, 8d, 38,
+ 63, 5c, e3, 6a,
+ 15, 1f, 10, b9,
+ cf, d9, 57, 33,
+
+avx_mix_colomn_add_helper:
+ c0, 24, 29, d9,
+ c1, 24, 29, d9,
+ c0, 24, 29, d9,
+ c1, 24, 29, d9,
+
+avx_mix_column:
+ 25, 29, d9, c0,
+ 24, 28, d9, c0,
+ 25, 29, d9, c1,
+ 24, 28, d9, c1,
+
+out avx_mix_column...
+in avx_add_round_key...
+avx_add_round_key:
+ 7b, 10, d6, bd,
+ d3, 8e, 4b, 56,
+ 82, 7c, e4, 00,
+ 2e, 8b, c6, aa,
+
+out avx_add_round_key...
+------------------------------------------------------------------------
+state:
+ 7b, 10, d6, bd,
+ d3, 8e, 4b, 56,
+ 82, 7c, e4, 00,
+ 2e, 8b, c6, aa,
+
+round_key:
+ 14, f9, 70, 1a,
+ e3, 5f, e2, 8c,
+ 44, 0a, df, 4d,
+ 4e, a9, c0, 26,
+
+in avx_sub_bytes...
+avx_sub_bytes:
+ 21, 66, 13, 31,
+ ca, 19, 10, 3d,
+ f6, b3, 69, b4,
+ 7a, b1, 63, ac,
+
+out avx_sub_bytes...
+in avx_shift_rows...
+avx_shift_rows:
+ 21, 66, 13, 31,
+ 19, 10, 3d, ca,
+ 69, b4, f6, b3,
+ ac, 7a, b1, 63,
+
+out avx_shift_rows...
+in avx_mix_column...
+avx_mix_colomn_helper:
+ 42, cc, 27, 63,
+ 33, 20, 7b, 94,
+ d3, 68, ed, 66,
+ 59, f4, 63, c6,
+
+avx_mix_colomn_helper:
+ 33, 20, 7b, 95,
+ d2, 69, ec, 67,
+ 58, f4, 62, c7,
+ 43, cc, 26, 63,
+
+avx_mix_colomn_helper:
+ d3, 68, ed, 66,
+ 59, f4, 63, c6,
+ 42, cc, 27, 63,
+ 33, 20, 7b, 94,
+
+avx_mix_colomn_helper:
+ 58, f4, 62, c7,
+ 43, cc, 26, 63,
+ 33, 20, 7b, 95,
+ d2, 69, ec, 67,
+
+avx_mix_colomn_add_helper:
+ fa, 70, d3, 57,
+ fb, 71, d2, 56,
+ fa, 70, d3, 57,
+ fb, 71, d2, 56,
+
+avx_mix_colomn_helper:
+ cc, 27, 63, 43,
+ 20, 7a, 95, 33,
+ 68, ec, 67, d3,
+ f4, 63, c7, 59,
+
+avx_mix_colomn_helper:
+ 20, 7b, 94, 32,
+ 69, ed, 67, d3,
+ f4, 63, c7, 58,
+ cc, 27, 62, 43,
+
+avx_mix_colomn_helper:
+ 68, ec, 67, d3,
+ f4, 63, c7, 59,
+ cc, 27, 63, 43,
+ 20, 7a, 95, 33,
+
+avx_mix_colomn_helper:
+ f4, 63, c7, 58,
+ cc, 27, 62, 43,
+ 20, 7b, 94, 32,
+ 69, ed, 67, d3,
+
+avx_mix_colomn_add_helper:
+ 70, d3, 57, fa,
+ 71, d3, 57, fa,
+ 70, d3, 57, fa,
+ 71, d3, 57, fa,
+
+avx_mix_colomn_helper:
+ 26, 63, 43, cc,
+ 7b, 95, 33, 20,
+ ec, 67, d2, 69,
+ 62, c7, 58, f4,
+
+avx_mix_colomn_helper:
+ 7b, 94, 33, 20,
+ ed, 66, d3, 68,
+ 63, c6, 59, f4,
+ 27, 63, 42, cc,
+
+avx_mix_colomn_helper:
+ ec, 67, d2, 69,
+ 62, c7, 58, f4,
+ 26, 63, 43, cc,
+ 7b, 95, 33, 20,
+
+avx_mix_colomn_helper:
+ 63, c6, 59, f4,
+ 27, 63, 42, cc,
+ 7b, 94, 33, 20,
+ ed, 66, d3, 68,
+
+avx_mix_colomn_add_helper:
+ d2, 56, fb, 71,
+ d3, 57, fa, 70,
+ d2, 56, fb, 71,
+ d3, 57, fa, 70,
+
+avx_mix_colomn_helper:
+ 62, 43, cc, 27,
+ 94, 32, 20, 7b,
+ 67, d3, 69, ed,
+ c7, 58, f4, 63,
+
+avx_mix_colomn_helper:
+ 95, 33, 20, 7a,
+ 67, d3, 68, ec,
+ c7, 59, f4, 63,
+ 63, 43, cc, 27,
+
+avx_mix_colomn_helper:
+ 67, d3, 69, ed,
+ c7, 58, f4, 63,
+ 62, 43, cc, 27,
+ 94, 32, 20, 7b,
+
+avx_mix_colomn_helper:
+ c7, 59, f4, 63,
+ 63, 43, cc, 27,
+ 95, 33, 20, 7a,
+ 67, d3, 68, ec,
+
+avx_mix_colomn_add_helper:
+ 57, fa, 71, d3,
+ 57, fa, 70, d3,
+ 57, fa, 71, d3,
+ 57, fa, 70, d3,
+
+avx_mix_column:
+ fa, 70, d2, 57,
+ fa, 71, d3, 57,
+ fb, 71, d3, 57,
+ fa, 70, d3, 56,
+
+out avx_mix_column...
+in avx_add_round_key...
+avx_add_round_key:
+ ee, 89, a2, 4d,
+ 19, 2e, 31, db,
+ bf, 7b, 0c, 1a,
+ b4, d9, 13, 70,
+
+out avx_add_round_key...
+------------------------------------------------------------------------
+state:
+ ee, 89, a2, 4d,
+ 19, 2e, 31, db,
+ bf, 7b, 0c, 1a,
+ b4, d9, 13, 70,
+
+round_key:
+ 47, 43, 87, 35,
+ a4, 1c, 65, b9,
+ e0, 16, ba, f4,
+ ae, bf, 7a, d2,
+
+in avx_sub_bytes...
+avx_sub_bytes:
+ 28, d4, 08, 8d,
+ a7, 31, 21, 35,
+ 3a, c7, fe, 7d,
+ e3, b9, a2, 51,
+
+out avx_sub_bytes...
+in avx_shift_rows...
+avx_shift_rows:
+ 28, d4, 08, 8d,
+ 31, 21, 35, a7,
+ fe, 7d, 3a, c7,
+ 51, e3, b9, a2,
+
+out avx_shift_rows...
+in avx_mix_column...
+avx_mix_colomn_helper:
+ 50, a9, 10, 1b,
+ 63, 42, 6b, 4f,
+ fc, fb, 74, 8e,
+ a3, c7, 73, 45,
+
+avx_mix_colomn_helper:
+ 63, 43, 6b, 4f,
+ fd, fb, 74, 8f,
+ a3, c7, 72, 44,
+ 50, a8, 10, 1a,
+
+avx_mix_colomn_helper:
+ fc, fb, 74, 8e,
+ a3, c7, 73, 45,
+ 50, a9, 10, 1b,
+ 63, 42, 6b, 4f,
+
+avx_mix_colomn_helper:
+ a3, c7, 72, 44,
+ 50, a8, 10, 1a,
+ 63, 43, 6b, 4f,
+ fd, fb, 74, 8f,
+
+avx_mix_colomn_add_helper:
+ 6c, d6, 7d, 9e,
+ 6d, d6, 7c, 9f,
+ 6c, d6, 7d, 9e,
+ 6d, d6, 7c, 9f,
+
+avx_mix_colomn_helper:
+ a9, 10, 1b, 50,
+ 43, 6a, 4e, 63,
+ fb, 74, 8f, fd,
+ c6, 73, 44, a2,
+
+avx_mix_colomn_helper:
+ 43, 6b, 4f, 62,
+ fa, 74, 8f, fc,
+ c7, 73, 45, a3,
+ a8, 10, 1b, 50,
+
+avx_mix_colomn_helper:
+ fb, 74, 8f, fd,
+ c6, 73, 44, a2,
+ a9, 10, 1b, 50,
+ 43, 6a, 4e, 63,
+
+avx_mix_colomn_helper:
+ c7, 73, 45, a3,
+ a8, 10, 1b, 50,
+ 43, 6b, 4f, 62,
+ fa, 74, 8f, fc,
+
+avx_mix_colomn_add_helper:
+ d6, 7c, 9e, 6c,
+ d7, 7d, 9e, 6d,
+ d6, 7c, 9e, 6c,
+ d7, 7d, 9e, 6d,
+
+avx_mix_colomn_helper:
+ 10, 1a, 50, a8,
+ 6b, 4f, 63, 43,
+ 74, 8f, fd, fb,
+ 72, 44, a3, c7,
+
+avx_mix_colomn_helper:
+ 6b, 4f, 63, 42,
+ 74, 8e, fc, fb,
+ 73, 45, a3, c7,
+ 10, 1b, 50, a9,
+
+avx_mix_colomn_helper:
+ 74, 8f, fd, fb,
+ 72, 44, a3, c7,
+ 10, 1a, 50, a8,
+ 6b, 4f, 63, 43,
+
+avx_mix_colomn_helper:
+ 73, 45, a3, c7,
+ 10, 1b, 50, a9,
+ 6b, 4f, 63, 42,
+ 74, 8e, fc, fb,
+
+avx_mix_colomn_add_helper:
+ 7c, 9f, 6d, d6,
+ 7d, 9e, 6c, d6,
+ 7c, 9f, 6d, d6,
+ 7d, 9e, 6c, d6,
+
+avx_mix_colomn_helper:
+ 1b, 50, a8, 10,
+ 4f, 62, 43, 6b,
+ 8f, fc, fa, 74,
+ 45, a3, c7, 73,
+
+avx_mix_colomn_helper:
+ 4e, 63, 43, 6a,
+ 8f, fd, fb, 74,
+ 44, a2, c6, 73,
+ 1b, 50, a9, 10,
+
+avx_mix_colomn_helper:
+ 8f, fc, fa, 74,
+ 45, a3, c7, 73,
+ 1b, 50, a8, 10,
+ 4f, 62, 43, 6b,
+
+avx_mix_colomn_helper:
+ 44, a2, c6, 73,
+ 1b, 50, a9, 10,
+ 4e, 63, 43, 6a,
+ 8f, fd, fb, 74,
+
+avx_mix_colomn_add_helper:
+ 9e, 6d, d7, 7d,
+ 9e, 6c, d6, 7c,
+ 9e, 6d, d7, 7d,
+ 9e, 6c, d6, 7c,
+
+avx_mix_column:
+ 6c, d6, 7c, 9e,
+ 6c, d6, 7d, 9e,
+ 6d, d7, 7d, 9e,
+ 6d, d6, 7c, 9f,
+
+out avx_mix_column...
+in avx_add_round_key...
+avx_add_round_key:
+ 2b, 95, fb, ab,
+ c8, ca, 18, 27,
+ 8d, c1, c7, 6a,
+ c3, 69, 06, 4d,
+
+out avx_add_round_key...
+------------------------------------------------------------------------
+state:
+ 2b, 95, fb, ab,
+ c8, ca, 18, 27,
+ 8d, c1, c7, 6a,
+ c3, 69, 06, 4d,
+
+round_key:
+ 54, 99, 32, d1,
+ f0, 85, 57, 68,
+ 10, 93, ed, 9c,
+ be, 2c, 97, 4e,
+
+in avx_sub_bytes...
+avx_sub_bytes:
+ f1, e8, 5d, 2e,
+ 2a, 74, 78, f9,
+ 0f, ad, c6, 6f,
+ 62, cc, 02, e3,
+
+out avx_sub_bytes...
+in avx_shift_rows...
+avx_shift_rows:
+ f1, e8, 5d, 2e,
+ 74, 78, f9, 2a,
+ c6, 6f, 0f, ad,
+ e3, 62, cc, 02,
+
+out avx_shift_rows...
+in avx_mix_column...
+avx_mix_colomn_helper:
+ e3, d1, bb, 5c,
+ e8, f0, f2, 54,
+ 8c, df, 1e, 5a,
+ c6, c4, 98, 04,
+
+avx_mix_colomn_helper:
+ e8, f0, f3, 54,
+ 8d, df, 1f, 5b,
+ c7, c4, 99, 04,
+ e3, d0, ba, 5c,
+
+avx_mix_colomn_helper:
+ 8c, df, 1e, 5a,
+ c6, c4, 98, 04,
+ e3, d1, bb, 5c,
+ e8, f0, f2, 54,
+
+avx_mix_colomn_helper:
+ c7, c4, 99, 04,
+ e3, d0, ba, 5c,
+ e8, f0, f3, 54,
+ 8d, df, 1f, 5b,
+
+avx_mix_colomn_add_helper:
+ 40, 3a, cf, 56,
+ 40, 3b, cf, 57,
+ 40, 3a, cf, 56,
+ 40, 3b, cf, 57,
+
+avx_mix_colomn_helper:
+ d1, bb, 5c, e3,
+ f0, f3, 54, e8,
+ df, 1f, 5b, 8d,
+ c4, 98, 04, c7,
+
+avx_mix_colomn_helper:
+ f0, f3, 54, e8,
+ de, 1f, 5b, 8c,
+ c4, 99, 04, c7,
+ d0, bb, 5c, e2,
+
+avx_mix_colomn_helper:
+ df, 1f, 5b, 8d,
+ c4, 98, 04, c7,
+ d1, bb, 5c, e3,
+ f0, f3, 54, e8,
+
+avx_mix_colomn_helper:
+ c4, 99, 04, c7,
+ d0, bb, 5c, e2,
+ f0, f3, 54, e8,
+ de, 1f, 5b, 8c,
+
+avx_mix_colomn_add_helper:
+ 3a, ce, 57, 41,
+ 3a, cf, 57, 41,
+ 3a, ce, 57, 41,
+ 3a, cf, 57, 41,
+
+avx_mix_colomn_helper:
+ ba, 5c, e3, d0,
+ f3, 54, e8, f0,
+ 1f, 5b, 8d, df,
+ 99, 04, c7, c4,
+
+avx_mix_colomn_helper:
+ f2, 54, e8, f0,
+ 1e, 5a, 8c, df,
+ 98, 04, c6, c4,
+ bb, 5c, e3, d1,
+
+avx_mix_colomn_helper:
+ 1f, 5b, 8d, df,
+ 99, 04, c7, c4,
+ ba, 5c, e3, d0,
+ f3, 54, e8, f0,
+
+avx_mix_colomn_helper:
+ 98, 04, c6, c4,
+ bb, 5c, e3, d1,
+ f2, 54, e8, f0,
+ 1e, 5a, 8c, df,
+
+avx_mix_colomn_add_helper:
+ cf, 57, 40, 3b,
+ cf, 56, 40, 3a,
+ cf, 57, 40, 3b,
+ cf, 56, 40, 3a,
+
+avx_mix_colomn_helper:
+ 5c, e2, d0, bb,
+ 54, e8, f0, f3,
+ 5b, 8c, de, 1f,
+ 04, c7, c4, 99,
+
+avx_mix_colomn_helper:
+ 54, e8, f0, f3,
+ 5b, 8d, df, 1f,
+ 04, c7, c4, 98,
+ 5c, e3, d1, bb,
+
+avx_mix_colomn_helper:
+ 5b, 8c, de, 1f,
+ 04, c7, c4, 99,
+ 5c, e2, d0, bb,
+ 54, e8, f0, f3,
+
+avx_mix_colomn_helper:
+ 04, c7, c4, 98,
+ 5c, e3, d1, bb,
+ 54, e8, f0, f3,
+ 5b, 8d, df, 1f,
+
+avx_mix_colomn_add_helper:
+ 57, 41, 3a, cf,
+ 57, 41, 3a, ce,
+ 57, 41, 3a, cf,
+ 57, 41, 3a, ce,
+
+avx_mix_column:
+ 40, 3a, cf, 57,
+ 41, 3b, cf, 56,
+ 40, 3a, cf, 57,
+ 41, 3a, ce, 57,
+
+out avx_mix_column...
+in avx_add_round_key...
+avx_add_round_key:
+ 14, a3, fd, 86,
+ b1, be, 98, 3e,
+ 50, a9, 22, cb,
+ ff, 16, 59, 19,
+
+out avx_add_round_key...
+------------------------------------------------------------------------
+state:
+ 14, a3, fd, 86,
+ b1, be, 98, 3e,
+ 50, a9, 22, cb,
+ ff, 16, 59, 19,
+
+round_key:
+ 13, 11, 1d, 7f,
+ e3, 94, 4a, 17,
+ f3, 07, a7, 8b,
+ 4d, 2b, 30, c5,
+
+in avx_sub_bytes...
+avx_sub_bytes:
+ fa, c8, 53, 16,
+ 0a, ae, d3, 47,
+ 54, 46, 93, cb,
+ 44, b2, 1f, d4,
+
+out avx_sub_bytes...
+in avx_shift_rows...
+avx_shift_rows:
+ fa, c8, 53, 16,
+ ae, d3, 47, 0a,
+ 93, cb, 54, 46,
+ d4, 44, b2, 1f,
+
+out avx_shift_rows...
+in avx_add_round_key...
+avx_add_round_key:
+ e9, d9, 4e, 69,
+ 4d, 47, 0d, 1d,
+ 60, cc, f3, cd,
+ 99, 6f, 82, da,
+
+out avx_add_round_key...
+message:
+ e9, d9, 4e, 69,
+ 4d, 47, 0d, 1d,
+ 60, cc, f3, cd,
+ 99, 6f, 82, da,
+
+Ciphered message:
+e9 d9 4e 69 4d 47 0d 1d 60 cc f3 cd 99 6f 82 da 
