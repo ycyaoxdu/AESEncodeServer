@@ -1,0 +1,1540 @@
+Plaintext message:
+00 17 34 51 68 85 102 119 136 153 170 187 204 221 238 255 
+in avx_add_round_key...
+avx_add_round_key:
+ 00, 10, 20, 30,
+ 40, 50, 60, 70,
+ 80, 90, a0, b0,
+ c0, d0, e0, f0,
+
+out avx_add_round_key...
+------------------------------------------------------------------------
+state:
+ 00, 10, 20, 30,
+ 40, 50, 60, 70,
+ 80, 90, a0, b0,
+ c0, d0, e0, f0,
+
+round_key:
+ d6, aa, 74, fd,
+ d2, af, 72, fa,
+ da, a6, 78, f1,
+ d6, ab, 76, fe,
+
+in avx_sub_bytes...
+avx_sub_bytes:
+ 63, 09, cd, ba,
+ ca, 53, 60, 70,
+ b7, d0, e0, e1,
+ 04, 51, e7, 8c,
+
+out avx_sub_bytes...
+in avx_shift_rows...
+avx_shift_rows:
+ 63, 09, cd, ba,
+ 53, 60, 70, ca,
+ e0, e1, b7, d0,
+ 8c, 04, 51, e7,
+
+out avx_shift_rows...
+in avx_mix_column...
+avx_mix_colomn_helper:
+ c6, 00, 00, 00,
+ 00, c0, 00, 00,
+ 00, 00, 6f, 00,
+ 00, 00, 00, cf,
+
+avx_mix_colomn_helper:
+ a7, 00, 00, 00,
+ 00, c2, 00, 00,
+ 00, 00, a3, 00,
+ 00, 00, 00, 75,
+
+avx_mix_colomn_helper:
+ c0, 00, 00, 00,
+ 00, 08, 00, 00,
+ 00, 00, 9b, 00,
+ 00, 00, 00, 94,
+
+avx_mix_colomn_helper:
+ 18, 00, 00, 00,
+ 00, 13, 00, 00,
+ 00, 00, e0, 00,
+ 00, 00, 00, a0,
+
+avx_mix_colomn_add_helper:
+ b9, 00, 00, 00,
+ 00, 19, 00, 00,
+ 00, 00, b7, 00,
+ 00, 00, 00, 8e,
+
+avx_mix_colomn_helper:
+ 12, 00, 00, 00,
+ 00, e0, 00, 00,
+ 00, 00, a1, 00,
+ 00, 00, 00, 19,
+
+avx_mix_colomn_helper:
+ c0, 00, 00, 00,
+ 00, 6e, 00, 00,
+ 00, 00, ce, 00,
+ 00, 00, 00, c7,
+
+avx_mix_colomn_helper:
+ c3, 00, 00, 00,
+ 00, a3, 00, 00,
+ 00, 00, 74, 00,
+ 00, 00, 00, a7,
+
+avx_mix_colomn_helper:
+ 08, 00, 00, 00,
+ 00, 9b, 00, 00,
+ 00, 00, 94, 00,
+ 00, 00, 00, c0,
+
+avx_mix_colomn_add_helper:
+ 19, 00, 00, 00,
+ 00, b6, 00, 00,
+ 00, 00, 8f, 00,
+ 00, 00, 00, b9,
+
+avx_mix_colomn_helper:
+ 9b, 00, 00, 00,
+ 00, 95, 00, 00,
+ 00, 00, c1, 00,
+ 00, 00, 00, 08,
+
+avx_mix_colomn_helper:
+ e0, 00, 00, 00,
+ 00, a1, 00, 00,
+ 00, 00, 19, 00,
+ 00, 00, 00, 13,
+
+avx_mix_colomn_helper:
+ 6f, 00, 00, 00,
+ 00, cf, 00, 00,
+ 00, 00, c7, 00,
+ 00, 00, 00, c0,
+
+avx_mix_colomn_helper:
+ a3, 00, 00, 00,
+ 00, 74, 00, 00,
+ 00, 00, a7, 00,
+ 00, 00, 00, c3,
+
+avx_mix_colomn_add_helper:
+ b7, 00, 00, 00,
+ 00, 8f, 00, 00,
+ 00, 00, b8, 00,
+ 00, 00, 00, 18,
+
+avx_mix_colomn_helper:
+ 75, 00, 00, 00,
+ 00, a6, 00, 00,
+ 00, 00, c3, 00,
+ 00, 00, 00, a2,
+
+avx_mix_colomn_helper:
+ 95, 00, 00, 00,
+ 00, c1, 00, 00,
+ 00, 00, 08, 00,
+ 00, 00, 00, 9a,
+
+avx_mix_colomn_helper:
+ a0, 00, 00, 00,
+ 00, 18, 00, 00,
+ 00, 00, 13, 00,
+ 00, 00, 00, e0,
+
+avx_mix_colomn_helper:
+ cf, 00, 00, 00,
+ 00, c7, 00, 00,
+ 00, 00, c0, 00,
+ 00, 00, 00, 6f,
+
+avx_mix_colomn_add_helper:
+ 8f, 00, 00, 00,
+ 00, b8, 00, 00,
+ 00, 00, 18, 00,
+ 00, 00, 00, b7,
+
+avx_mix_column:
+ b9, 19, b7, 8f,
+ b8, 19, b6, 8f,
+ b8, 18, b7, 8f,
+ b9, 18, b7, 8e,
+
+out avx_mix_column...
+in avx_add_round_key...
+avx_add_round_key:
+ 6f, b3, c3, 72,
+ 6a, b6, c4, 75,
+ 62, be, cf, 7e,
+ 6f, b3, c1, 70,
+
+out avx_add_round_key...
+------------------------------------------------------------------------
+state:
+ 6f, b3, c3, 72,
+ 6a, b6, c4, 75,
+ 62, be, cf, 7e,
+ 6f, b3, c1, 70,
+
+round_key:
+ b6, 92, cf, 0b,
+ 64, 3d, bd, f1,
+ be, 9b, c5, 00,
+ 68, 30, b3, fe,
+
+in avx_sub_bytes...
+avx_sub_bytes:
+ a8, 02, aa, a8,
+ 6d, 4e, ae, 6d,
+ 2e, 1c, 8a, 78,
+ 40, 9d, f3, 51,
+
+out avx_sub_bytes...
+in avx_shift_rows...
+avx_shift_rows:
+ a8, 02, aa, a8,
+ 4e, ae, 6d, 6d,
+ 8a, 78, 2e, 1c,
+ 51, 40, 9d, f3,
+
+out avx_shift_rows...
+in avx_mix_column...
+avx_mix_colomn_helper:
+ 51, 00, 00, 00,
+ 00, 5d, 00, 00,
+ 00, 00, 5c, 00,
+ 00, 00, 00, e7,
+
+avx_mix_colomn_helper:
+ 9c, 00, 00, 00,
+ 00, f0, 00, 00,
+ 00, 00, 3a, 00,
+ 00, 00, 00, 51,
+
+avx_mix_colomn_helper:
+ 14, 00, 00, 00,
+ 00, 80, 00, 00,
+ 00, 00, 54, 00,
+ 00, 00, 00, db,
+
+avx_mix_colomn_helper:
+ a3, 00, 00, 00,
+ 00, 04, 00, 00,
+ 00, 00, db, 00,
+ 00, 00, 00, 38,
+
+avx_mix_colomn_add_helper:
+ 7a, 00, 00, 00,
+ 00, 29, 00, 00,
+ 00, 00, e9, 00,
+ 00, 00, 00, 55,
+
+avx_mix_colomn_helper:
+ 04, 00, 00, 00,
+ 00, da, 00, 00,
+ 00, 00, 38, 00,
+ 00, 00, 00, a2,
+
+avx_mix_colomn_helper:
+ 5d, 00, 00, 00,
+ 00, 5c, 00, 00,
+ 00, 00, e6, 00,
+ 00, 00, 00, 51,
+
+avx_mix_colomn_helper:
+ f0, 00, 00, 00,
+ 00, 3b, 00, 00,
+ 00, 00, 50, 00,
+ 00, 00, 00, 9c,
+
+avx_mix_colomn_helper:
+ 80, 00, 00, 00,
+ 00, 54, 00, 00,
+ 00, 00, db, 00,
+ 00, 00, 00, 14,
+
+avx_mix_colomn_add_helper:
+ 29, 00, 00, 00,
+ 00, e9, 00, 00,
+ 00, 00, 55, 00,
+ 00, 00, 00, 7b,
+
+avx_mix_colomn_helper:
+ 55, 00, 00, 00,
+ 00, da, 00, 00,
+ 00, 00, 15, 00,
+ 00, 00, 00, 80,
+
+avx_mix_colomn_helper:
+ db, 00, 00, 00,
+ 00, 38, 00, 00,
+ 00, 00, a3, 00,
+ 00, 00, 00, 04,
+
+avx_mix_colomn_helper:
+ 5c, 00, 00, 00,
+ 00, e7, 00, 00,
+ 00, 00, 50, 00,
+ 00, 00, 00, 5c,
+
+avx_mix_colomn_helper:
+ 3b, 00, 00, 00,
+ 00, 50, 00, 00,
+ 00, 00, 9c, 00,
+ 00, 00, 00, f0,
+
+avx_mix_colomn_add_helper:
+ e9, 00, 00, 00,
+ 00, 55, 00, 00,
+ 00, 00, 7a, 00,
+ 00, 00, 00, 28,
+
+avx_mix_colomn_helper:
+ 51, 00, 00, 00,
+ 00, 9c, 00, 00,
+ 00, 00, f0, 00,
+ 00, 00, 00, 3b,
+
+avx_mix_colomn_helper:
+ db, 00, 00, 00,
+ 00, 15, 00, 00,
+ 00, 00, 80, 00,
+ 00, 00, 00, 55,
+
+avx_mix_colomn_helper:
+ 38, 00, 00, 00,
+ 00, a3, 00, 00,
+ 00, 00, 04, 00,
+ 00, 00, 00, db,
+
+avx_mix_colomn_helper:
+ e7, 00, 00, 00,
+ 00, 50, 00, 00,
+ 00, 00, 5c, 00,
+ 00, 00, 00, 5c,
+
+avx_mix_colomn_add_helper:
+ 55, 00, 00, 00,
+ 00, 7a, 00, 00,
+ 00, 00, 28, 00,
+ 00, 00, 00, e9,
+
+avx_mix_column:
+ 7a, 29, e9, 55,
+ 7a, 29, e9, 55,
+ 7a, 28, e9, 55,
+ 7b, 28, e9, 55,
+
+out avx_mix_column...
+in avx_add_round_key...
+avx_add_round_key:
+ cc, bb, 26, 5e,
+ 1e, 14, 54, a4,
+ c4, b3, 2c, 55,
+ 13, 18, 5a, ab,
+
+out avx_add_round_key...
+------------------------------------------------------------------------
+state:
+ cc, bb, 26, 5e,
+ 1e, 14, 54, a4,
+ c4, b3, 2c, 55,
+ 13, 18, 5a, ab,
+
+round_key:
+ b6, ff, 74, 4e,
+ d2, c2, c9, bf,
+ 6c, 59, 0c, bf,
+ 04, 69, bf, 41,
+
+in avx_sub_bytes...
+avx_sub_bytes:
+ 4b, 72, 1c, 7d,
+ ea, fa, 6d, ad,
+ f7, 20, 71, be,
+ 58, 49, fc, 62,
+
+out avx_sub_bytes...
+in avx_shift_rows...
+avx_shift_rows:
+ 4b, 72, 1c, 7d,
+ fa, 6d, ad, ea,
+ 71, be, f7, 20,
+ 62, 58, 49, fc,
+
+out avx_shift_rows...
+in avx_mix_column...
+avx_mix_colomn_helper:
+ 96, 00, 00, 00,
+ 00, da, 00, 00,
+ 00, 00, ef, 00,
+ 00, 00, 00, f9,
+
+avx_mix_colomn_helper:
+ f5, 00, 00, 00,
+ 00, 7d, 00, 00,
+ 00, 00, 93, 00,
+ 00, 00, 00, fb,
+
+avx_mix_colomn_helper:
+ e3, 00, 00, 00,
+ 00, b0, 00, 00,
+ 00, 00, 38, 00,
+ 00, 00, 00, d4,
+
+avx_mix_colomn_helper:
+ c4, 00, 00, 00,
+ 00, e4, 00, 00,
+ 00, 00, 5b, 00,
+ 00, 00, 00, 40,
+
+avx_mix_colomn_add_helper:
+ 44, 00, 00, 00,
+ 00, f3, 00, 00,
+ 00, 00, 1f, 00,
+ 00, 00, 00, 96,
+
+avx_mix_colomn_helper:
+ e4, 00, 00, 00,
+ 00, 5b, 00, 00,
+ 00, 00, 40, 00,
+ 00, 00, 00, c4,
+
+avx_mix_colomn_helper:
+ db, 00, 00, 00,
+ 00, ee, 00, 00,
+ 00, 00, f9, 00,
+ 00, 00, 00, 97,
+
+avx_mix_colomn_helper:
+ 7c, 00, 00, 00,
+ 00, 93, 00, 00,
+ 00, 00, fb, 00,
+ 00, 00, 00, f4,
+
+avx_mix_colomn_helper:
+ b0, 00, 00, 00,
+ 00, 38, 00, 00,
+ 00, 00, d4, 00,
+ 00, 00, 00, e3,
+
+avx_mix_colomn_add_helper:
+ f3, 00, 00, 00,
+ 00, 1e, 00, 00,
+ 00, 00, 96, 00,
+ 00, 00, 00, 44,
+
+avx_mix_colomn_helper:
+ 38, 00, 00, 00,
+ 00, d5, 00, 00,
+ 00, 00, e2, 00,
+ 00, 00, 00, b0,
+
+avx_mix_colomn_helper:
+ 5a, 00, 00, 00,
+ 00, 40, 00, 00,
+ 00, 00, c4, 00,
+ 00, 00, 00, e4,
+
+avx_mix_colomn_helper:
+ ef, 00, 00, 00,
+ 00, f8, 00, 00,
+ 00, 00, 97, 00,
+ 00, 00, 00, db,
+
+avx_mix_colomn_helper:
+ 93, 00, 00, 00,
+ 00, fb, 00, 00,
+ 00, 00, f4, 00,
+ 00, 00, 00, 7c,
+
+avx_mix_colomn_add_helper:
+ 1e, 00, 00, 00,
+ 00, 96, 00, 00,
+ 00, 00, 45, 00,
+ 00, 00, 00, f3,
+
+avx_mix_colomn_helper:
+ fa, 00, 00, 00,
+ 00, f5, 00, 00,
+ 00, 00, 7d, 00,
+ 00, 00, 00, 92,
+
+avx_mix_colomn_helper:
+ d5, 00, 00, 00,
+ 00, e3, 00, 00,
+ 00, 00, b0, 00,
+ 00, 00, 00, 38,
+
+avx_mix_colomn_helper:
+ 40, 00, 00, 00,
+ 00, c4, 00, 00,
+ 00, 00, e4, 00,
+ 00, 00, 00, 5b,
+
+avx_mix_colomn_helper:
+ f8, 00, 00, 00,
+ 00, 97, 00, 00,
+ 00, 00, db, 00,
+ 00, 00, 00, ef,
+
+avx_mix_colomn_add_helper:
+ 97, 00, 00, 00,
+ 00, 45, 00, 00,
+ 00, 00, f2, 00,
+ 00, 00, 00, 1e,
+
+avx_mix_column:
+ 44, f3, 1e, 97,
+ 45, f3, 1e, 96,
+ 45, f2, 1f, 96,
+ 44, f3, 1e, 96,
+
+out avx_mix_column...
+in avx_add_round_key...
+avx_add_round_key:
+ f2, 0c, 6a, d9,
+ 97, 31, d7, 29,
+ 29, ab, 13, 29,
+ 40, 9a, a1, d7,
+
+out avx_add_round_key...
+------------------------------------------------------------------------
+state:
+ f2, 0c, 6a, d9,
+ 97, 31, d7, 29,
+ 29, ab, 13, 29,
+ 40, 9a, a1, d7,
+
+round_key:
+ 47, f7, f7, bc,
+ 95, 35, 3e, 03,
+ f9, 6c, 32, bc,
+ fd, 05, 8d, fd,
+
+in avx_sub_bytes...
+avx_sub_bytes:
+ 89, 88, a5, 09,
+ fe, c7, 62, b8,
+ 02, 0e, 7d, 32,
+ 35, a5, a5, 0e,
+
+out avx_sub_bytes...
+in avx_shift_rows...
+avx_shift_rows:
+ 89, 88, a5, 09,
+ c7, 62, b8, fe,
+ 7d, 32, 02, 0e,
+ 0e, 35, a5, a5,
+
+out avx_shift_rows...
+in avx_mix_column...
+avx_mix_colomn_helper:
+ 13, 00, 00, 00,
+ 00, c4, 00, 00,
+ 00, 00, 04, 00,
+ 00, 00, 00, 4b,
+
+avx_mix_colomn_helper:
+ 8e, 00, 00, 00,
+ 00, 64, 00, 00,
+ 00, 00, 4a, 00,
+ 00, 00, 00, 13,
+
+avx_mix_colomn_helper:
+ fb, 00, 00, 00,
+ 00, 6b, 00, 00,
+ 00, 00, 4b, 00,
+ 00, 00, 00, fc,
+
+avx_mix_colomn_helper:
+ 1c, 00, 00, 00,
+ 00, 10, 00, 00,
+ 00, 00, 70, 00,
+ 00, 00, 00, 1c,
+
+avx_mix_colomn_add_helper:
+ 7a, 00, 00, 00,
+ 00, db, 00, 00,
+ 00, 00, 75, 00,
+ 00, 00, 00, b8,
+
+avx_mix_colomn_helper:
+ 11, 00, 00, 00,
+ 00, 71, 00, 00,
+ 00, 00, 1c, 00,
+ 00, 00, 00, 1c,
+
+avx_mix_colomn_helper:
+ c4, 00, 00, 00,
+ 00, 04, 00, 00,
+ 00, 00, 4a, 00,
+ 00, 00, 00, 12,
+
+avx_mix_colomn_helper:
+ 64, 00, 00, 00,
+ 00, 4b, 00, 00,
+ 00, 00, 13, 00,
+ 00, 00, 00, 8f,
+
+avx_mix_colomn_helper:
+ 6b, 00, 00, 00,
+ 00, 4b, 00, 00,
+ 00, 00, fc, 00,
+ 00, 00, 00, fb,
+
+avx_mix_colomn_add_helper:
+ da, 00, 00, 00,
+ 00, 75, 00, 00,
+ 00, 00, b9, 00,
+ 00, 00, 00, 7a,
+
+avx_mix_colomn_helper:
+ 4b, 00, 00, 00,
+ 00, fd, 00, 00,
+ 00, 00, fa, 00,
+ 00, 00, 00, 6a,
+
+avx_mix_colomn_helper:
+ 71, 00, 00, 00,
+ 00, 1c, 00, 00,
+ 00, 00, 1c, 00,
+ 00, 00, 00, 11,
+
+avx_mix_colomn_helper:
+ 04, 00, 00, 00,
+ 00, 4b, 00, 00,
+ 00, 00, 13, 00,
+ 00, 00, 00, c4,
+
+avx_mix_colomn_helper:
+ 4b, 00, 00, 00,
+ 00, 13, 00, 00,
+ 00, 00, 8f, 00,
+ 00, 00, 00, 64,
+
+avx_mix_colomn_add_helper:
+ 75, 00, 00, 00,
+ 00, b9, 00, 00,
+ 00, 00, 7a, 00,
+ 00, 00, 00, db,
+
+avx_mix_colomn_helper:
+ 12, 00, 00, 00,
+ 00, 8f, 00, 00,
+ 00, 00, 64, 00,
+ 00, 00, 00, 4b,
+
+avx_mix_colomn_helper:
+ fd, 00, 00, 00,
+ 00, fb, 00, 00,
+ 00, 00, 6b, 00,
+ 00, 00, 00, 4a,
+
+avx_mix_colomn_helper:
+ 1c, 00, 00, 00,
+ 00, 1c, 00, 00,
+ 00, 00, 10, 00,
+ 00, 00, 00, 70,
+
+avx_mix_colomn_helper:
+ 4b, 00, 00, 00,
+ 00, 13, 00, 00,
+ 00, 00, c4, 00,
+ 00, 00, 00, 04,
+
+avx_mix_colomn_add_helper:
+ b8, 00, 00, 00,
+ 00, 7b, 00, 00,
+ 00, 00, db, 00,
+ 00, 00, 00, 75,
+
+avx_mix_column:
+ 7a, da, 75, b8,
+ 7b, db, 75, b9,
+ 7a, db, 75, b9,
+ 7a, db, 75, b8,
+
+out avx_mix_column...
+in avx_add_round_key...
+avx_add_round_key:
+ 3d, 2d, 82, 04,
+ ee, ee, 4b, ba,
+ 83, b7, 47, 05,
+ 87, de, f8, 45,
+
+out avx_add_round_key...
+------------------------------------------------------------------------
+state:
+ 3d, 2d, 82, 04,
+ ee, ee, 4b, ba,
+ 83, b7, 47, 05,
+ 87, de, f8, 45,
+
+round_key:
+ 3c, aa, a3, e8,
+ a9, 9f, 9d, eb,
+ 50, f3, af, 57,
+ ad, f6, 22, aa,
+
+in avx_sub_bytes...
+avx_sub_bytes:
+ 27, 28, ec, 17,
+ d8, 28, a9, 1d,
+ 13, b3, a0, 41,
+ f2, f4, 6b, 6e,
+
+out avx_sub_bytes...
+in avx_shift_rows...
+avx_shift_rows:
+ 27, 28, ec, 17,
+ 28, a9, 1d, d8,
+ a0, 41, 13, b3,
+ 6e, f2, f4, 6b,
+
+out avx_shift_rows...
+in avx_mix_column...
+avx_mix_colomn_helper:
+ 4e, 00, 00, 00,
+ 00, 53, 00, 00,
+ 00, 00, 26, 00,
+ 00, 00, 00, d6,
+
+avx_mix_colomn_helper:
+ 50, 00, 00, 00,
+ 00, 83, 00, 00,
+ 00, 00, e9, 00,
+ 00, 00, 00, 2f,
+
+avx_mix_colomn_helper:
+ 40, 00, 00, 00,
+ 00, e4, 00, 00,
+ 00, 00, d8, 00,
+ 00, 00, 00, b0,
+
+avx_mix_colomn_helper:
+ dc, 00, 00, 00,
+ 00, 50, 00, 00,
+ 00, 00, 3b, 00,
+ 00, 00, 00, 67,
+
+avx_mix_colomn_add_helper:
+ 82, 00, 00, 00,
+ 00, 64, 00, 00,
+ 00, 00, 2c, 00,
+ 00, 00, 00, 2e,
+
+avx_mix_colomn_helper:
+ 50, 00, 00, 00,
+ 00, 3a, 00, 00,
+ 00, 00, 67, 00,
+ 00, 00, 00, dc,
+
+avx_mix_colomn_helper:
+ 52, 00, 00, 00,
+ 00, 27, 00, 00,
+ 00, 00, d7, 00,
+ 00, 00, 00, 4f,
+
+avx_mix_colomn_helper:
+ 83, 00, 00, 00,
+ 00, e8, 00, 00,
+ 00, 00, 2f, 00,
+ 00, 00, 00, 50,
+
+avx_mix_colomn_helper:
+ e4, 00, 00, 00,
+ 00, d8, 00, 00,
+ 00, 00, b0, 00,
+ 00, 00, 00, 40,
+
+avx_mix_colomn_add_helper:
+ 65, 00, 00, 00,
+ 00, 2d, 00, 00,
+ 00, 00, 2f, 00,
+ 00, 00, 00, 83,
+
+avx_mix_colomn_helper:
+ d9, 00, 00, 00,
+ 00, b1, 00, 00,
+ 00, 00, 41, 00,
+ 00, 00, 00, e5,
+
+avx_mix_colomn_helper:
+ 3b, 00, 00, 00,
+ 00, 66, 00, 00,
+ 00, 00, dc, 00,
+ 00, 00, 00, 50,
+
+avx_mix_colomn_helper:
+ 27, 00, 00, 00,
+ 00, d7, 00, 00,
+ 00, 00, 4f, 00,
+ 00, 00, 00, 53,
+
+avx_mix_colomn_helper:
+ e8, 00, 00, 00,
+ 00, 2f, 00, 00,
+ 00, 00, 50, 00,
+ 00, 00, 00, 83,
+
+avx_mix_colomn_add_helper:
+ 2d, 00, 00, 00,
+ 00, 2f, 00, 00,
+ 00, 00, 82, 00,
+ 00, 00, 00, 65,
+
+avx_mix_colomn_helper:
+ 2e, 00, 00, 00,
+ 00, 50, 00, 00,
+ 00, 00, 82, 00,
+ 00, 00, 00, e9,
+
+avx_mix_colomn_helper:
+ b1, 00, 00, 00,
+ 00, 41, 00, 00,
+ 00, 00, e5, 00,
+ 00, 00, 00, d9,
+
+avx_mix_colomn_helper:
+ 67, 00, 00, 00,
+ 00, dc, 00, 00,
+ 00, 00, 50, 00,
+ 00, 00, 00, 3b,
+
+avx_mix_colomn_helper:
+ d7, 00, 00, 00,
+ 00, 4f, 00, 00,
+ 00, 00, 53, 00,
+ 00, 00, 00, 27,
+
+avx_mix_colomn_add_helper:
+ 2f, 00, 00, 00,
+ 00, 82, 00, 00,
+ 00, 00, 64, 00,
+ 00, 00, 00, 2c,
+
+avx_mix_column:
+ 82, 65, 2d, 2f,
+ 82, 64, 2d, 2f,
+ 82, 64, 2c, 2f,
+ 83, 65, 2c, 2e,
+
+out avx_mix_column...
+in avx_add_round_key...
+avx_add_round_key:
+ be, cf, 8e, c7,
+ 2b, fb, b0, c4,
+ d2, 97, 83, 78,
+ 2e, 93, 0e, 84,
+
+out avx_add_round_key...
+------------------------------------------------------------------------
+state:
+ be, cf, 8e, c7,
+ 2b, fb, b0, c4,
+ d2, 97, 83, 78,
+ 2e, 93, 0e, 84,
+
+round_key:
+ 5e, 39, 0f, 7d,
+ f7, a6, 92, 96,
+ a7, 55, 3d, c1,
+ 0a, a3, 1f, 6b,
+
+in avx_sub_bytes...
+avx_sub_bytes:
+ ae, f1, b5, 31,
+ 8a, 0f, 88, dc,
+ 19, e7, ec, ab,
+ c6, 1c, bc, 5f,
+
+out avx_sub_bytes...
+in avx_shift_rows...
+avx_shift_rows:
+ ae, f1, b5, 31,
+ 0f, 88, dc, 8a,
+ ec, ab, 19, e7,
+ 5f, c6, 1c, bc,
+
+out avx_shift_rows...
+in avx_mix_column...
+avx_mix_colomn_helper:
+ 5d, 00, 00, 00,
+ 00, 11, 00, 00,
+ 00, 00, 32, 00,
+ 00, 00, 00, 79,
+
+avx_mix_colomn_helper:
+ 1f, 00, 00, 00,
+ 00, 56, 00, 00,
+ 00, 00, 38, 00,
+ 00, 00, 00, 63,
+
+avx_mix_colomn_helper:
+ d8, 00, 00, 00,
+ 00, 8c, 00, 00,
+ 00, 00, 6b, 00,
+ 00, 00, 00, 14,
+
+avx_mix_colomn_helper:
+ bf, 00, 00, 00,
+ 00, e3, 00, 00,
+ 00, 00, b8, 00,
+ 00, 00, 00, cf,
+
+avx_mix_colomn_add_helper:
+ 25, 00, 00, 00,
+ 00, 28, 00, 00,
+ 00, 00, d9, 00,
+ 00, 00, 00, c1,
+
+avx_mix_colomn_helper:
+ e3, 00, 00, 00,
+ 00, b9, 00, 00,
+ 00, 00, cf, 00,
+ 00, 00, 00, be,
+
+avx_mix_colomn_helper:
+ 11, 00, 00, 00,
+ 00, 33, 00, 00,
+ 00, 00, 79, 00,
+ 00, 00, 00, 5d,
+
+avx_mix_colomn_helper:
+ 57, 00, 00, 00,
+ 00, 38, 00, 00,
+ 00, 00, 63, 00,
+ 00, 00, 00, 1f,
+
+avx_mix_colomn_helper:
+ 8c, 00, 00, 00,
+ 00, 6b, 00, 00,
+ 00, 00, 14, 00,
+ 00, 00, 00, d8,
+
+avx_mix_colomn_add_helper:
+ 29, 00, 00, 00,
+ 00, d9, 00, 00,
+ 00, 00, c1, 00,
+ 00, 00, 00, 24,
+
+avx_mix_colomn_helper:
+ 6b, 00, 00, 00,
+ 00, 15, 00, 00,
+ 00, 00, d9, 00,
+ 00, 00, 00, 8d,
+
+avx_mix_colomn_helper:
+ b9, 00, 00, 00,
+ 00, ce, 00, 00,
+ 00, 00, bf, 00,
+ 00, 00, 00, e2,
+
+avx_mix_colomn_helper:
+ 33, 00, 00, 00,
+ 00, 78, 00, 00,
+ 00, 00, 5c, 00,
+ 00, 00, 00, 10,
+
+avx_mix_colomn_helper:
+ 38, 00, 00, 00,
+ 00, 63, 00, 00,
+ 00, 00, 1f, 00,
+ 00, 00, 00, 57,
+
+avx_mix_colomn_add_helper:
+ d9, 00, 00, 00,
+ 00, c0, 00, 00,
+ 00, 00, 25, 00,
+ 00, 00, 00, 28,
+
+avx_mix_colomn_helper:
+ 62, 00, 00, 00,
+ 00, 1e, 00, 00,
+ 00, 00, 57, 00,
+ 00, 00, 00, 38,
+
+avx_mix_colomn_helper:
+ 15, 00, 00, 00,
+ 00, d9, 00, 00,
+ 00, 00, 8d, 00,
+ 00, 00, 00, 6a,
+
+avx_mix_colomn_helper:
+ cf, 00, 00, 00,
+ 00, bf, 00, 00,
+ 00, 00, e3, 00,
+ 00, 00, 00, b8,
+
+avx_mix_colomn_helper:
+ 78, 00, 00, 00,
+ 00, 5c, 00, 00,
+ 00, 00, 10, 00,
+ 00, 00, 00, 33,
+
+avx_mix_colomn_add_helper:
+ c0, 00, 00, 00,
+ 00, 24, 00, 00,
+ 00, 00, 29, 00,
+ 00, 00, 00, d9,
+
+avx_mix_column:
+ 25, 29, d9, c0,
+ 24, 28, d9, c0,
+ 25, 29, d9, c1,
+ 24, 28, d9, c1,
+
+out avx_mix_column...
+in avx_add_round_key...
+avx_add_round_key:
+ 7b, 10, d6, bd,
+ d3, 8e, 4b, 56,
+ 82, 7c, e4, 00,
+ 2e, 8b, c6, aa,
+
+out avx_add_round_key...
+------------------------------------------------------------------------
+state:
+ 7b, 10, d6, bd,
+ d3, 8e, 4b, 56,
+ 82, 7c, e4, 00,
+ 2e, 8b, c6, aa,
+
+round_key:
+ 14, f9, 70, 1a,
+ e3, 5f, e2, 8c,
+ 44, 0a, df, 4d,
+ 4e, a9, c0, 26,
+
+in avx_sub_bytes...
+avx_sub_bytes:
+ 21, 66, 13, 31,
+ ca, 19, 10, 3d,
+ f6, b3, 69, b4,
+ 7a, b1, 63, ac,
+
+out avx_sub_bytes...
+in avx_shift_rows...
+avx_shift_rows:
+ 21, 66, 13, 31,
+ 19, 10, 3d, ca,
+ 69, b4, f6, b3,
+ ac, 7a, b1, 63,
+
+out avx_shift_rows...
+in avx_mix_column...
+avx_mix_colomn_helper:
+ 42, 00, 00, 00,
+ 00, 20, 00, 00,
+ 00, 00, ed, 00,
+ 00, 00, 00, c6,
+
+avx_mix_colomn_helper:
+ 33, 00, 00, 00,
+ 00, 69, 00, 00,
+ 00, 00, 62, 00,
+ 00, 00, 00, 63,
+
+avx_mix_colomn_helper:
+ d3, 00, 00, 00,
+ 00, f4, 00, 00,
+ 00, 00, 27, 00,
+ 00, 00, 00, 94,
+
+avx_mix_colomn_helper:
+ 58, 00, 00, 00,
+ 00, cc, 00, 00,
+ 00, 00, 7b, 00,
+ 00, 00, 00, 67,
+
+avx_mix_colomn_add_helper:
+ fa, 00, 00, 00,
+ 00, 71, 00, 00,
+ 00, 00, d3, 00,
+ 00, 00, 00, 56,
+
+avx_mix_colomn_helper:
+ cc, 00, 00, 00,
+ 00, 7a, 00, 00,
+ 00, 00, 67, 00,
+ 00, 00, 00, 59,
+
+avx_mix_colomn_helper:
+ 20, 00, 00, 00,
+ 00, ed, 00, 00,
+ 00, 00, c7, 00,
+ 00, 00, 00, 43,
+
+avx_mix_colomn_helper:
+ 68, 00, 00, 00,
+ 00, 63, 00, 00,
+ 00, 00, 63, 00,
+ 00, 00, 00, 33,
+
+avx_mix_colomn_helper:
+ f4, 00, 00, 00,
+ 00, 27, 00, 00,
+ 00, 00, 94, 00,
+ 00, 00, 00, d3,
+
+avx_mix_colomn_add_helper:
+ 70, 00, 00, 00,
+ 00, d3, 00, 00,
+ 00, 00, 57, 00,
+ 00, 00, 00, fa,
+
+avx_mix_colomn_helper:
+ 26, 00, 00, 00,
+ 00, 95, 00, 00,
+ 00, 00, d2, 00,
+ 00, 00, 00, f4,
+
+avx_mix_colomn_helper:
+ 7b, 00, 00, 00,
+ 00, 66, 00, 00,
+ 00, 00, 59, 00,
+ 00, 00, 00, cc,
+
+avx_mix_colomn_helper:
+ ec, 00, 00, 00,
+ 00, c7, 00, 00,
+ 00, 00, 43, 00,
+ 00, 00, 00, 20,
+
+avx_mix_colomn_helper:
+ 63, 00, 00, 00,
+ 00, 63, 00, 00,
+ 00, 00, 33, 00,
+ 00, 00, 00, 68,
+
+avx_mix_colomn_add_helper:
+ d2, 00, 00, 00,
+ 00, 57, 00, 00,
+ 00, 00, fb, 00,
+ 00, 00, 00, 70,
+
+avx_mix_colomn_helper:
+ 62, 00, 00, 00,
+ 00, 32, 00, 00,
+ 00, 00, 69, 00,
+ 00, 00, 00, 63,
+
+avx_mix_colomn_helper:
+ 95, 00, 00, 00,
+ 00, d3, 00, 00,
+ 00, 00, f4, 00,
+ 00, 00, 00, 27,
+
+avx_mix_colomn_helper:
+ 67, 00, 00, 00,
+ 00, 58, 00, 00,
+ 00, 00, cc, 00,
+ 00, 00, 00, 7b,
+
+avx_mix_colomn_helper:
+ c7, 00, 00, 00,
+ 00, 43, 00, 00,
+ 00, 00, 20, 00,
+ 00, 00, 00, ec,
+
+avx_mix_colomn_add_helper:
+ 57, 00, 00, 00,
+ 00, fa, 00, 00,
+ 00, 00, 71, 00,
+ 00, 00, 00, d3,
+
+avx_mix_column:
+ fa, 70, d2, 57,
+ fa, 71, d3, 57,
+ fb, 71, d3, 57,
+ fa, 70, d3, 56,
+
+out avx_mix_column...
+in avx_add_round_key...
+avx_add_round_key:
+ ee, 89, a2, 4d,
+ 19, 2e, 31, db,
+ bf, 7b, 0c, 1a,
+ b4, d9, 13, 70,
+
+out avx_add_round_key...
+------------------------------------------------------------------------
+state:
+ ee, 89, a2, 4d,
+ 19, 2e, 31, db,
+ bf, 7b, 0c, 1a,
+ b4, d9, 13, 70,
+
+round_key:
+ 47, 43, 87, 35,
+ a4, 1c, 65, b9,
+ e0, 16, ba, f4,
+ ae, bf, 7a, d2,
+
+in avx_sub_bytes...
+avx_sub_bytes:
+ 28, d4, 08, 8d,
+ a7, 31, 21, 35,
+ 3a, c7, fe, 7d,
+ e3, b9, a2, 51,
+
+out avx_sub_bytes...
+in avx_shift_rows...
+avx_shift_rows:
+ 28, d4, 08, 8d,
+ 31, 21, 35, a7,
+ fe, 7d, 3a, c7,
+ 51, e3, b9, a2,
+
+out avx_shift_rows...
+in avx_mix_column...
+avx_mix_colomn_helper:
+ 50, 00, 00, 00,
+ 00, 42, 00, 00,
+ 00, 00, 74, 00,
+ 00, 00, 00, 45,
+
+avx_mix_colomn_helper:
+ 63, 00, 00, 00,
+ 00, fb, 00, 00,
+ 00, 00, 72, 00,
+ 00, 00, 00, 1a,
+
+avx_mix_colomn_helper:
+ fc, 00, 00, 00,
+ 00, c7, 00, 00,
+ 00, 00, 10, 00,
+ 00, 00, 00, 4f,
+
+avx_mix_colomn_helper:
+ a3, 00, 00, 00,
+ 00, a8, 00, 00,
+ 00, 00, 6b, 00,
+ 00, 00, 00, 8f,
+
+avx_mix_colomn_add_helper:
+ 6c, 00, 00, 00,
+ 00, d6, 00, 00,
+ 00, 00, 7d, 00,
+ 00, 00, 00, 9f,
+
+avx_mix_colomn_helper:
+ a9, 00, 00, 00,
+ 00, 6a, 00, 00,
+ 00, 00, 8f, 00,
+ 00, 00, 00, a2,
+
+avx_mix_colomn_helper:
+ 43, 00, 00, 00,
+ 00, 74, 00, 00,
+ 00, 00, 45, 00,
+ 00, 00, 00, 50,
+
+avx_mix_colomn_helper:
+ fb, 00, 00, 00,
+ 00, 73, 00, 00,
+ 00, 00, 1b, 00,
+ 00, 00, 00, 63,
+
+avx_mix_colomn_helper:
+ c7, 00, 00, 00,
+ 00, 10, 00, 00,
+ 00, 00, 4f, 00,
+ 00, 00, 00, fc,
+
+avx_mix_colomn_add_helper:
+ d6, 00, 00, 00,
+ 00, 7d, 00, 00,
+ 00, 00, 9e, 00,
+ 00, 00, 00, 6d,
+
+avx_mix_colomn_helper:
+ 10, 00, 00, 00,
+ 00, 4f, 00, 00,
+ 00, 00, fd, 00,
+ 00, 00, 00, c7,
+
+avx_mix_colomn_helper:
+ 6b, 00, 00, 00,
+ 00, 8e, 00, 00,
+ 00, 00, a3, 00,
+ 00, 00, 00, a9,
+
+avx_mix_colomn_helper:
+ 74, 00, 00, 00,
+ 00, 44, 00, 00,
+ 00, 00, 50, 00,
+ 00, 00, 00, 43,
+
+avx_mix_colomn_helper:
+ 73, 00, 00, 00,
+ 00, 1b, 00, 00,
+ 00, 00, 63, 00,
+ 00, 00, 00, fb,
+
+avx_mix_colomn_add_helper:
+ 7c, 00, 00, 00,
+ 00, 9e, 00, 00,
+ 00, 00, 6d, 00,
+ 00, 00, 00, d6,
+
+avx_mix_colomn_helper:
+ 1b, 00, 00, 00,
+ 00, 62, 00, 00,
+ 00, 00, fa, 00,
+ 00, 00, 00, 73,
+
+avx_mix_colomn_helper:
+ 4e, 00, 00, 00,
+ 00, fd, 00, 00,
+ 00, 00, c6, 00,
+ 00, 00, 00, 10,
+
+avx_mix_colomn_helper:
+ 8f, 00, 00, 00,
+ 00, a3, 00, 00,
+ 00, 00, a8, 00,
+ 00, 00, 00, 6b,
+
+avx_mix_colomn_helper:
+ 44, 00, 00, 00,
+ 00, 50, 00, 00,
+ 00, 00, 43, 00,
+ 00, 00, 00, 74,
+
+avx_mix_colomn_add_helper:
+ 9e, 00, 00, 00,
+ 00, 6c, 00, 00,
+ 00, 00, d7, 00,
+ 00, 00, 00, 7c,
+
+avx_mix_column:
+ 6c, d6, 7c, 9e,
+ 6c, d6, 7d, 9e,
+ 6d, d7, 7d, 9e,
+ 6d, d6, 7c, 9f,
+
+out avx_mix_column...
+in avx_add_round_key...
+avx_add_round_key:
+ 2b, 95, fb, ab,
+ c8, ca, 18, 27,
+ 8d, c1, c7, 6a,
+ c3, 69, 06, 4d,
+
+out avx_add_round_key...
+------------------------------------------------------------------------
+state:
+ 2b, 95, fb, ab,
+ c8, ca, 18, 27,
+ 8d, c1, c7, 6a,
+ c3, 69, 06, 4d,
+
+round_key:
+ 54, 99, 32, d1,
+ f0, 85, 57, 68,
+ 10, 93, ed, 9c,
+ be, 2c, 97, 4e,
+
+in avx_sub_bytes...
+avx_sub_bytes:
+ f1, e8, 5d, 2e,
+ 2a, 74, 78, f9,
+ 0f, ad, c6, 6f,
+ 62, cc, 02, e3,
+
+out avx_sub_bytes...
+in avx_shift_rows...
+avx_shift_rows:
+ f1, e8, 5d, 2e,
+ 74, 78, f9, 2a,
+ c6, 6f, 0f, ad,
+ e3, 62, cc, 02,
+
+out avx_shift_rows...
+in avx_mix_column...
+avx_mix_colomn_helper:
+ e3, 00, 00, 00,
+ 00, f0, 00, 00,
+ 00, 00, 1e, 00,
+ 00, 00, 00, 04,
+
+avx_mix_colomn_helper:
+ e8, 00, 00, 00,
+ 00, df, 00, 00,
+ 00, 00, 99, 00,
+ 00, 00, 00, 5c,
+
+avx_mix_colomn_helper:
+ 8c, 00, 00, 00,
+ 00, c4, 00, 00,
+ 00, 00, bb, 00,
+ 00, 00, 00, 54,
+
+avx_mix_colomn_helper:
+ c7, 00, 00, 00,
+ 00, d0, 00, 00,
+ 00, 00, f3, 00,
+ 00, 00, 00, 5b,
+
+avx_mix_colomn_add_helper:
+ 40, 00, 00, 00,
+ 00, 3b, 00, 00,
+ 00, 00, cf, 00,
+ 00, 00, 00, 57,
+
+avx_mix_colomn_helper:
+ d1, 00, 00, 00,
+ 00, f3, 00, 00,
+ 00, 00, 5b, 00,
+ 00, 00, 00, c7,
+
+avx_mix_colomn_helper:
+ f0, 00, 00, 00,
+ 00, 1f, 00, 00,
+ 00, 00, 04, 00,
+ 00, 00, 00, e2,
+
+avx_mix_colomn_helper:
+ df, 00, 00, 00,
+ 00, 98, 00, 00,
+ 00, 00, 5c, 00,
+ 00, 00, 00, e8,
+
+avx_mix_colomn_helper:
+ c4, 00, 00, 00,
+ 00, bb, 00, 00,
+ 00, 00, 54, 00,
+ 00, 00, 00, 8c,
+
+avx_mix_colomn_add_helper:
+ 3a, 00, 00, 00,
+ 00, cf, 00, 00,
+ 00, 00, 57, 00,
+ 00, 00, 00, 41,
+
+avx_mix_colomn_helper:
+ ba, 00, 00, 00,
+ 00, 54, 00, 00,
+ 00, 00, 8d, 00,
+ 00, 00, 00, c4,
+
+avx_mix_colomn_helper:
+ f2, 00, 00, 00,
+ 00, 5a, 00, 00,
+ 00, 00, c6, 00,
+ 00, 00, 00, d1,
+
+avx_mix_colomn_helper:
+ 1f, 00, 00, 00,
+ 00, 04, 00, 00,
+ 00, 00, e3, 00,
+ 00, 00, 00, f0,
+
+avx_mix_colomn_helper:
+ 98, 00, 00, 00,
+ 00, 5c, 00, 00,
+ 00, 00, e8, 00,
+ 00, 00, 00, df,
+
+avx_mix_colomn_add_helper:
+ cf, 00, 00, 00,
+ 00, 56, 00, 00,
+ 00, 00, 40, 00,
+ 00, 00, 00, 3a,
+
+avx_mix_colomn_helper:
+ 5c, 00, 00, 00,
+ 00, e8, 00, 00,
+ 00, 00, de, 00,
+ 00, 00, 00, 99,
+
+avx_mix_colomn_helper:
+ 54, 00, 00, 00,
+ 00, 8d, 00, 00,
+ 00, 00, c4, 00,
+ 00, 00, 00, bb,
+
+avx_mix_colomn_helper:
+ 5b, 00, 00, 00,
+ 00, c7, 00, 00,
+ 00, 00, d0, 00,
+ 00, 00, 00, f3,
+
+avx_mix_colomn_helper:
+ 04, 00, 00, 00,
+ 00, e3, 00, 00,
+ 00, 00, f0, 00,
+ 00, 00, 00, 1f,
+
+avx_mix_colomn_add_helper:
+ 57, 00, 00, 00,
+ 00, 41, 00, 00,
+ 00, 00, 3a, 00,
+ 00, 00, 00, ce,
+
+avx_mix_column:
+ 40, 3a, cf, 57,
+ 41, 3b, cf, 56,
+ 40, 3a, cf, 57,
+ 41, 3a, ce, 57,
+
+out avx_mix_column...
+in avx_add_round_key...
+avx_add_round_key:
+ 14, a3, fd, 86,
+ b1, be, 98, 3e,
+ 50, a9, 22, cb,
+ ff, 16, 59, 19,
+
+out avx_add_round_key...
+------------------------------------------------------------------------
+state:
+ 14, a3, fd, 86,
+ b1, be, 98, 3e,
+ 50, a9, 22, cb,
+ ff, 16, 59, 19,
+
+round_key:
+ 13, 11, 1d, 7f,
+ e3, 94, 4a, 17,
+ f3, 07, a7, 8b,
+ 4d, 2b, 30, c5,
+
+in avx_sub_bytes...
+avx_sub_bytes:
+ fa, c8, 53, 16,
+ 0a, ae, d3, 47,
+ 54, 46, 93, cb,
+ 44, b2, 1f, d4,
+
+out avx_sub_bytes...
+in avx_shift_rows...
+avx_shift_rows:
+ fa, c8, 53, 16,
+ ae, d3, 47, 0a,
+ 93, cb, 54, 46,
+ d4, 44, b2, 1f,
+
+out avx_shift_rows...
+in avx_add_round_key...
+avx_add_round_key:
+ e9, d9, 4e, 69,
+ 4d, 47, 0d, 1d,
+ 60, cc, f3, cd,
+ 99, 6f, 82, da,
+
+out avx_add_round_key...
+message:
+ e9, d9, 4e, 69,
+ 4d, 47, 0d, 1d,
+ 60, cc, f3, cd,
+ 99, 6f, 82, da,
+
+Ciphered message:
+e9 d9 4e 69 4d 47 0d 1d 60 cc f3 cd 99 6f 82 da 
