@@ -390,6 +390,17 @@ __m256i avx_up_shift_step(__m256i state)
     // avx_print_u16(&res);
     return res;
 }
+
+__m256i avx_select_diag(__m256i state)
+{
+    __m256i avx_selector = avx_set_data_u16(p_selector1);
+    __m256i res = _mm256_and_si256(state, avx_selector);
+    // printf("selected diag:\n");
+    // avx_print_u16(&state);
+    // avx_print_u16(&res);
+    return res;
+}
+
 // return round key for specified round i.
 uint8_t *get_round_key(int i, uint8_t *expanded_key)
 {
@@ -507,7 +518,8 @@ __m256i avx_mix_colomn_helper(__m256i state, __m256i TT)
     //
     __m256i s_right_7 = _mm256_srli_epi16(state, 7);
     __m256i t_right_1 = _mm256_srli_epi16(TT, 1);
-    __m256i tr1_and_sr7_and_mul = _mm256_and_si256(avx_multiplier, _mm256_and_si256(t_right_1, s_right_7));
+
+    __m256i tr1_and_sr7_and_mul = _mm256_and_si256(avx_multiplier, _mm256_and_si256(avx_mask_bit, _mm256_and_si256(t_right_1, s_right_7)));
 
     __m256i res = _mm256_xor_si256(state_and_t_and_mask,
                                    _mm256_xor_si256(s_left_1,
@@ -550,11 +562,11 @@ __m256i avx_mix_colomn_add_helper(__m256i state)
     __m256i su1 = avx_up_shift_step(su0);
     __m256i su2 = avx_up_shift_step(su1);
     __m256i su3 = avx_up_shift_step(su2);
-    //
-    __m256i mul0 = avx_mix_colomn_helper(su0, tl0);
-    __m256i mul1 = avx_mix_colomn_helper(su1, tl1);
-    __m256i mul2 = avx_mix_colomn_helper(su2, tl2);
-    __m256i mul3 = avx_mix_colomn_helper(su3, tl3);
+    // 只有对角线元素有意义，取出对角线
+    __m256i mul0 = avx_mix_colomn_helper(avx_select_diag(su0), avx_select_diag(tl0));
+    __m256i mul1 = avx_mix_colomn_helper(avx_select_diag(su1), avx_select_diag(tl1));
+    __m256i mul2 = avx_mix_colomn_helper(avx_select_diag(su2), avx_select_diag(tl2));
+    __m256i mul3 = avx_mix_colomn_helper(avx_select_diag(su3), avx_select_diag(tl3));
 
     //
     __m256i res1 = _mm256_xor_si256(mul2, mul3);
@@ -584,10 +596,17 @@ __m256i avx_mix_column(__m256i state)
     __m256i state_l2 = avx_left_shift_step(state_l1);
     __m256i state_l3 = avx_left_shift_step(state_l2);
     //
-    __m256i raw_res_part1 = _mm256_and_si256(avx_mix_colomn_add_helper(state_l0), avx_selector1);
-    __m256i raw_res_part2 = _mm256_and_si256(avx_mix_colomn_add_helper(state_l1), avx_selector1);
-    __m256i raw_res_part3 = _mm256_and_si256(avx_mix_colomn_add_helper(state_l2), avx_selector1);
-    __m256i raw_res_part4 = _mm256_and_si256(avx_mix_colomn_add_helper(state_l3), avx_selector1);
+    // __m256i raw_res_part1 = _mm256_and_si256(avx_mix_colomn_add_helper(state_l0), avx_selector1);
+    // __m256i raw_res_part2 = _mm256_and_si256(avx_mix_colomn_add_helper(state_l1), avx_selector1);
+    // __m256i raw_res_part3 = _mm256_and_si256(avx_mix_colomn_add_helper(state_l2), avx_selector1);
+    // __m256i raw_res_part4 = _mm256_and_si256(avx_mix_colomn_add_helper(state_l3), avx_selector1);
+
+    // 
+    __m256i raw_res_part1 = avx_mix_colomn_add_helper(state_l0);
+    __m256i raw_res_part2 = avx_mix_colomn_add_helper(state_l1);
+    __m256i raw_res_part3 = avx_mix_colomn_add_helper(state_l2);
+    __m256i raw_res_part4 = avx_mix_colomn_add_helper(state_l3);
+
 
     __m256i res = _mm256_or_si256(raw_res_part1,
                                   _mm256_or_si256(avx_right_shift_step(raw_res_part2),
