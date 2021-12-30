@@ -429,8 +429,8 @@ uint8_t *get_round_key(int i, uint8_t *expanded_key)
 __m256i avx_set_round_key(int i, uint8_t *expanded_key)
 {
     __m256i res = avx_set_data_u8(get_round_key(i, expanded_key));
-    // printf("avx_set_round_key:\n");
-    // avx_print_u16(&res);
+    printf("avx_set_round_key:\n");
+    avx_print_u16(&res);
     return res;
 }
 
