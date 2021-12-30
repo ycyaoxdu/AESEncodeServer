@@ -22,7 +22,7 @@ func EncodeHandler(ctx *gin.Context) {
 	res := aes.Encode(msg.Msg)
 
 	ctx.JSON(200, gin.H{
-		"message": string(res),
+		"message": res,
 	})
 }
 
