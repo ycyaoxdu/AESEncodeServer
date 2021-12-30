@@ -19,6 +19,7 @@ type message struct {
 }
 
 func encode(msg []byte, waitgroup *sync.WaitGroup, buff chan<- message, i int) {
+
 	d := (*C.uint8_t)(unsafe.Pointer(&msg[0]))
 	a := C.run(d)
 
@@ -39,6 +40,12 @@ func encode(msg []byte, waitgroup *sync.WaitGroup, buff chan<- message, i int) {
 }
 
 func Encode(input string) (res []byte) {
+	defer func() {
+		if err := recover(); err != nil {
+			fmt.Printf("Panicing %s\r\n", err)
+		}
+	}()
+
 	var rawResult []message
 
 	wg := sync.WaitGroup{}
