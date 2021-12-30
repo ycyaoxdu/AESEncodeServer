@@ -19,6 +19,11 @@ type message struct {
 }
 
 func encode(msg []byte, waitgroup *sync.WaitGroup, buff chan<- message, i int) {
+	defer func() {
+		if err := recover(); err != nil {
+			fmt.Printf("Panicing in encode: %s\r\n", err)
+		}
+	}()
 
 	d := (*C.uint8_t)(unsafe.Pointer(&msg[0]))
 	a := C.run(d)
