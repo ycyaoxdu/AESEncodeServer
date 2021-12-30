@@ -39,8 +39,7 @@ int *run(uint8_t in[16]){
 	//
 	free(w);
 
-	return &out;
+	uint8_t *p = out;
+	return (int*)p;
 }
-
-
-//95 e6 5a 95 f3 95 4f 95 00 95 00 95 00 95 00 95
+ 
