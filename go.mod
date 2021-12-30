@@ -1,4 +1,4 @@
-module ycyaoxdu/AESEncodeServer
+module github.com/ycyaoxdu/AESEncodeServer
 
 go 1.17
 

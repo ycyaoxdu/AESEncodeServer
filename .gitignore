@@ -15,3 +15,7 @@
 #vendor/
 
 .idea/
+
+.pkg/aesEncodeWithAvxSpeedUp/avx_aes_c/.vscode/
+.pkg/aesEncodeWithAvxSpeedUp/avx_aes_c/avx_aes.dSYM/
+.pkg/aesEncodeWithAvxSpeedUp/avx_aes_c/*.out 
