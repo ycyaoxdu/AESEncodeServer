@@ -1,8 +1,8 @@
 package router
 
 import (
-	aes "ycyaoxdu/AESEncodeServer/pkg/aesEncodeWithAvxSpeedUp"
-	"ycyaoxdu/AESEncodeServer/server/model"
+	aes "github.com/ycyaoxdu/AESEncodeServer/pkg/aesEncodeWithAvxSpeedUp"
+	"github.com/ycyaoxdu/AESEncodeServer/server/model"
 
 	"github.com/gin-gonic/gin"
 )

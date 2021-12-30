@@ -1,7 +1,7 @@
 package server
 
 import (
-	"ycyaoxdu/AESEncodeServer/server/router"
+	"github.com/ycyaoxdu/AESEncodeServer/server/router"
 
 	"github.com/gin-gonic/gin"
 )

@@ -1,6 +1,6 @@
 package main
 
-import "ycyaoxdu/AESEncodeServer/server"
+import "github.com/ycyaoxdu/AESEncodeServer/server"
 
 func main() {
 	server.RunServer()
