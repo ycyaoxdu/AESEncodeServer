@@ -401,14 +401,26 @@ __m256i avx_select_diag(__m256i state)
     return res;
 }
 
+uint8_t res[16];
 // return round key for specified round i.
 uint8_t *get_round_key(int i, uint8_t *expanded_key)
 {
-    uint8_t res[] = {
-        expanded_key[16 * i + 0], expanded_key[16 * i + 1], expanded_key[16 * i + 2], expanded_key[16 * i + 3],
-        expanded_key[16 * i + 4], expanded_key[16 * i + 5], expanded_key[16 * i + 6], expanded_key[16 * i + 7],
-        expanded_key[16 * i + 8], expanded_key[16 * i + 9], expanded_key[16 * i + 10], expanded_key[16 * i + 11],
-        expanded_key[16 * i + 12], expanded_key[16 * i + 13], expanded_key[16 * i + 14], expanded_key[16 * i + 15]};
+    res[0] = expanded_key[16 * i + 0];
+    res[1] = expanded_key[16 * i + 1];
+    res[2] = expanded_key[16 * i + 2];
+    res[3] = expanded_key[16 * i + 3];
+    res[4] = expanded_key[16 * i + 4];
+    res[5] = expanded_key[16 * i + 5];
+    res[6] = expanded_key[16 * i + 6];
+    res[7] = expanded_key[16 * i + 7];
+    res[8] = expanded_key[16 * i + 8];
+    res[9] = expanded_key[16 * i + 9];
+    res[10] = expanded_key[16 * i + 10];
+    res[11] = expanded_key[16 * i + 11];
+    res[12] = expanded_key[16 * i + 12];
+    res[13] = expanded_key[16 * i + 13];
+    res[14] = expanded_key[16 * i + 14];
+    res[15] = expanded_key[16 * i + 15];
 
     return &res;
 }
@@ -601,12 +613,11 @@ __m256i avx_mix_column(__m256i state)
     // __m256i raw_res_part3 = _mm256_and_si256(avx_mix_colomn_add_helper(state_l2), avx_selector1);
     // __m256i raw_res_part4 = _mm256_and_si256(avx_mix_colomn_add_helper(state_l3), avx_selector1);
 
-    // 
+    //
     __m256i raw_res_part1 = avx_mix_colomn_add_helper(state_l0);
     __m256i raw_res_part2 = avx_mix_colomn_add_helper(state_l1);
     __m256i raw_res_part3 = avx_mix_colomn_add_helper(state_l2);
     __m256i raw_res_part4 = avx_mix_colomn_add_helper(state_l3);
-
 
     __m256i res = _mm256_or_si256(raw_res_part1,
                                   _mm256_or_si256(avx_right_shift_step(raw_res_part2),

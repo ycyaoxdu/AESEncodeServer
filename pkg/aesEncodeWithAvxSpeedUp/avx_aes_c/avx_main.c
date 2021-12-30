@@ -10,8 +10,8 @@ int *run(uint8_t in[16]){
 		0x0c, 0x0d, 0x0e, 0x0f};
 
 	//output
-	uint8_t out[16]; // 128
-
+	static uint8_t out[16]; // 128
+ 
 	uint8_t i;
 
 	// expanded key
