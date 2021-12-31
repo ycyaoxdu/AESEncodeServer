@@ -450,11 +450,5 @@ avx_add_round_key:
  90, 2e, 47, 44,
 
 out avx_add_round_key...
-message:
- d9, 17, bf, 5f,
- 6a, f1, 76, 0c,
- 66, 87, 87, 27,
- 90, 2e, 47, 44,
-
 Ciphered message:
 d9 17 bf 5f 6a f1 76 0c 66 87 87 27 90 2e 47 44 
