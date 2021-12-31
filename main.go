@@ -11,7 +11,11 @@ import (
 
 func main() {
 	// server.RunServer()
-	f, err := os.Open("./text.txt")
+	test()
+}
+
+func test() {
+	f, err := os.Open("text.txt")
 	if err != nil {
 		fmt.Println(err)
 	}
@@ -26,7 +30,6 @@ func main() {
 		testParaAvxAes(line)
 
 	}
-
 }
 
 func testParaAvxAes(input string) {
