@@ -552,7 +552,8 @@ __m256i avx_aes_loop(__m256i state, __m256i round_key)
     // avx_print_u16(&state);
     // printf("round_key:\n");
     // avx_print_u16(&round_key);
-    //
+
+    // //
 
     return avx_add_round_key(
         avx_mix_column(
@@ -571,7 +572,7 @@ __m256i avx_aes_final(__m256i state, __m256i round_key)
     // avx_print_u16(&state);
     // printf("round_key:\n");
     // avx_print_u16(&round_key);
-    //
+    // //
     return avx_add_round_key(
         avx_shift_rows(
             avx_sub_bytes(state)),
