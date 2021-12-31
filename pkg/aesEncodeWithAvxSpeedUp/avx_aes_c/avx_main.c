@@ -20,22 +20,22 @@ int *run(uint8_t in[16]){
 	aes_key_expansion(key, w);
 
 	//
-	printf("Plaintext message:\n");
-	for (i = 0; i < 4; i++)
-	{
-		printf("%02d %02d %02d %02d ", in[4 * i + 0], in[4 * i + 1], in[4 * i + 2], in[4 * i + 3]);
-	}
-	printf("\n");
+	// printf("Plaintext message:\n");
+	// for (i = 0; i < 4; i++)
+	// {
+	// 	printf("%02d %02d %02d %02d ", in[4 * i + 0], in[4 * i + 1], in[4 * i + 2], in[4 * i + 3]);
+	// }
+	// printf("\n");
 	// 
 	avx_aes_encode(in, out, w);
 
-	printf("Ciphered message:\n");
-	for (i = 0; i < 4; i++)
-	{
-		printf("%02x %02x %02x %02x ", out[4 * i + 0], out[4 * i + 1], out[4 * i + 2], out[4 * i + 3]);
-	}
+	// printf("Ciphered message:\n");
+	// for (i = 0; i < 4; i++)
+	// {
+	// 	printf("%02x %02x %02x %02x ", out[4 * i + 0], out[4 * i + 1], out[4 * i + 2], out[4 * i + 3]);
+	// }
 
-	printf("\n");
+	// printf("\n");
 	//
 	free(w);
 
