@@ -411,13 +411,13 @@ __m256i avx_set_round_key(int i, uint8_t *expanded_key)
 // avx_add_round_key do the add round key step with param state and round_key.
 __m256i avx_add_round_key(__m256i state, __m256i round_key)
 {
-    // printf("in avx_add_round_key...\n");
+    printf("in avx_add_round_key...\n");
 
     __m256i res = _mm256_xor_si256(state, round_key);
 
-    // printf("avx_add_round_key:\n");
-    // avx_print_u16(&res);
-    // printf("out avx_add_round_key...\n");
+    printf("avx_add_round_key:\n");
+    avx_print_u16(&res);
+    printf("out avx_add_round_key...\n");
 
     return res;
 }
@@ -425,10 +425,10 @@ __m256i avx_add_round_key(__m256i state, __m256i round_key)
 //
 __m256i avx_sub_bytes(__m256i in_state)
 {
-    // printf("in avx_sub_bytes...\n");
+    printf("in avx_sub_bytes...\n");
 
     alignas(32) uint16_t temp_state[16];
-    _mm256_store_si256((__m256i *)&temp_state, in_state); 
+    _mm256_store_si256((__m256i *)&temp_state, in_state);
     alignas(32) uint16_t state[16];
 
     for (uint8_t i = 0; i < 4; ++i)
@@ -498,22 +498,22 @@ __m256i avx_mix_colomn_helper(__m256i state, __m256i TT)
     __m256i avx_mask_int16 = avx_set_data_u16(p_mask_int16);
     __m256i avx_multiplier = avx_set_data_u16(p_multiplier);
     //
-    __m256i s_left_1 = _mm256_and_si256(avx_mask_int16, _mm256_slli_epi16(state, 1));
-    //
-    __m256i state_and_t_and_mask = _mm256_and_si256(state, _mm256_and_si256(TT, avx_mask_bit));
+    __m256i state_mul_t_and_mask = _mm256_mullo_epi16(state, _mm256_and_si256(TT, avx_mask_bit));
     //
     __m256i s_right_7 = _mm256_srli_epi16(state, 7);
     __m256i t_right_1 = _mm256_srli_epi16(TT, 1);
+    __m256i sr7_and_tr1 = _mm256_and_si256(s_right_7, t_right_1);
+    __m256i sr7_and_tr1_mul_0x1b = _mm256_mullo_epi16(sr7_and_tr1, avx_multiplier);
+    //
+    __m256i s_left_1 = _mm256_and_si256(avx_mask_int16, _mm256_slli_epi16(state, 1));
+    __m256i s_left_1_mul_t_right_1 = _mm256_mullo_epi16(s_left_1, t_right_1);
+    //
+    __m256i res = _mm256_xor_si256(state_mul_t_and_mask,
+                                   _mm256_xor_si256(s_left_1_mul_t_right_1,
+                                                    sr7_and_tr1_mul_0x1b));
 
-    __m256i tr1_and_sr7_and_mul = _mm256_and_si256(avx_multiplier, _mm256_and_si256(avx_mask_bit, _mm256_and_si256(t_right_1, s_right_7)));
-
-    __m256i res = _mm256_xor_si256(state_and_t_and_mask,
-                                   _mm256_xor_si256(s_left_1,
-                                                    tr1_and_sr7_and_mul));
-
-
-    printf("avx_mix_colomn_helper:\n");
-    avx_print_u16(&res);
+    // printf("avx_mix_colomn_helper:\n");
+    // avx_print_u16(&res);
     return res;
 }
 
@@ -541,8 +541,8 @@ __m256i avx_mix_colomn_add_helper(__m256i state)
     __m256i res2 = _mm256_xor_si256(mul0, mul1);
     __m256i res = _mm256_xor_si256(res1, res2);
 
-    printf("avx_mix_colomn_add_helper:\n");
-    avx_print_u16(&res);
+    // printf("avx_mix_colomn_add_helper:\n");
+    // avx_print_u16(&res);
 
     return res;
 }
@@ -562,7 +562,7 @@ __m256i avx_mix_column(__m256i state)
     __m256i state_l1 = avx_left_shift_step(state_l0);
     __m256i state_l2 = avx_left_shift_step(state_l1);
     __m256i state_l3 = avx_left_shift_step(state_l2);
-     
+
     //
     __m256i raw_res_part1 = avx_mix_colomn_add_helper(state_l0);
     __m256i raw_res_part2 = avx_mix_colomn_add_helper(state_l1);
