@@ -28,8 +28,9 @@ func test() {
 		line := scanner.Text()
 		fmt.Println(line)
 		testParaAvxAes(line)
-
+		fmt.Println("line over.")
 	}
+
 }
 
 func testParaAvxAes(input string) {
