@@ -1,6 +1,10 @@
 package router
 
 import (
+	"encoding/base64"
+	"fmt"
+	"strings"
+
 	aes "github.com/ycyaoxdu/AESEncodeServer/pkg/aesEncodeWithAvxSpeedUp"
 	"github.com/ycyaoxdu/AESEncodeServer/server/model"
 
@@ -8,8 +12,8 @@ import (
 )
 
 func SetRouter(e *gin.Engine) {
-	e.GET("/encode/:msg", EncodeHandler)
-	e.GET("/decode/:msg", DecodeHandelr)
+	e.GET("/encode/*msg", EncodeHandler)
+	e.GET("/decode/*msg", DecodeHandelr)
 }
 
 func EncodeHandler(ctx *gin.Context) {
@@ -19,7 +23,13 @@ func EncodeHandler(ctx *gin.Context) {
 		ctx.JSON(400, gin.H{"msg": err})
 		return
 	}
-	res := aes.Encode(msg.Msg)
+	str := strings.TrimPrefix(msg.Msg, "/")
+
+	result := aes.Encode(str)
+
+	res := model.Response{
+		Msg: result,
+	}
 
 	ctx.JSON(200, gin.H{
 		"message": res,
@@ -33,7 +43,19 @@ func DecodeHandelr(ctx *gin.Context) {
 		ctx.JSON(400, gin.H{"msg": err})
 		return
 	}
+	str := strings.TrimPrefix(msg.Msg, "/")
+
+	by, err := base64.StdEncoding.DecodeString(str)
+	if err != nil {
+		fmt.Println(err)
+	}
+
+	result := aes.Decode(string(by))
+	res := model.Message{
+		Msg: string(result),
+	}
+
 	ctx.JSON(200, gin.H{
-		"message": msg.Msg,
+		"message": res,
 	})
 }
