@@ -6,9 +6,17 @@
 #include <stdalign.h>
 #include "immintrin.h"
 
+// 密钥扩展辅助查表函数
 #define gmult(a, b) gmult_aes[256 * a + b]
+// 密钥初始化和密钥扩展
+uint8_t *aes_init(size_t key_size);
+void aes_key_expansion(uint8_t *key, uint8_t *w);
+//
 
-/*
+
+/**
+ * * 字节替代用到的表
+ *
  * S-box and Inv S-box
  */
 static const uint8_t s_box[256] = {
@@ -49,52 +57,72 @@ static uint8_t inv_s_box[256] = {
     0xa0, 0xe0, 0x3b, 0x4d, 0xae, 0x2a, 0xf5, 0xb0, 0xc8, 0xeb, 0xbb, 0x3c, 0x83, 0x53, 0x99, 0x61,  // e
     0x17, 0x2b, 0x04, 0x7e, 0xba, 0x77, 0xd6, 0x26, 0xe1, 0x69, 0x14, 0x63, 0x55, 0x21, 0x0c, 0x7d}; // f
 
-// 
+
+// 宏定义查表函数
 #define getSBoxValue(num) (s_box[(num)])
 #define getInvSBoxValue(num) (inv_s_box[(num)])
-//  key expand
-uint8_t *aes_init(size_t key_size);
-void aes_key_expansion(uint8_t *key, uint8_t *w);
-//
+
 
 /**
  *
- * *  aes
+ * *  aes 加密算法
  *
  */
 
 /*
- * *   set round key using given i.
+ * *   设置当前轮的轮密钥
  */
 __m256i avx_set_round_key(int i, uint8_t *expanded_key);
-//
+
+/**
+ * * 加密的循环过程四个步骤的实现
+ */
 __m256i avx_sub_bytes(__m256i in_state);
 __m256i avx_shift_rows(__m256i input);
 __m256i avx_mix_column(__m256i state);
 __m256i avx_add_round_key(__m256i state, __m256i round_key);
-//
+/**
+ * * 第二阶段循环函数和第三阶段final函数
+ */
 __m256i avx_aes_loop(__m256i state, __m256i round_key);
 __m256i avx_aes_final(__m256i state, __m256i round_key);
-//
+/**
+ * @brief 将输入in经过轮密钥w加密后存储到输出out
+ * 
+ * @param in 
+ * @param out 
+ * @param w 
+ */
 void avx_aes_encode(uint8_t *in, uint8_t *out, uint8_t *w);
 
 /**
  *
- * * inv aes
+ * *  aes 解密算法
  *
  */
 
+/**
+ * * 解密的循环过程三个步骤的实现，轮密钥加函数与加密过程相同，直接调用
+ */
 __m256i avx_inv_sub_bytes(__m256i in_state);
 __m256i avx_inv_shift_rows(__m256i input);
 __m256i avx_inv_mix_column(__m256i state);
-
+/**
+ * * 第二阶段循环函数和第三阶段final函数
+ */
 __m256i avx_inv_aes_loop(__m256i state, __m256i round_key);
 __m256i avx_inv_aes_final(__m256i state, __m256i round_key);
-
+/**
+ * @brief 将输入in经过轮密钥w解密后存储到输出out
+ * 
+ * @param in 
+ * @param out 
+ * @param w 
+ */
 void avx_aes_decode(uint8_t *in, uint8_t *out, uint8_t *w);
 
 
-// helper
+// 辅助函数，输出、更新状态，无具体算法功能
 __m256i avx_update_state(__m256i in_state);
 void get_avx_output(__m256i *message, uint8_t *out);
 
