@@ -231,3 +231,57 @@ func Decode(input string) []byte {
 
 	return UnPaddingByte(res)
 }
+
+func serialdecode(msg []byte, i int) []byte {
+	defer func() {
+		if err := recover(); err != nil {
+			fmt.Printf("Panicing in encode: %s\r\n", err)
+		}
+	}()
+
+	d := (*C.uint8_t)(unsafe.Pointer(&msg[0]))
+	a := C.inv_run(d)
+
+	// reference https://github.com/golang/go/issues/13656#issuecomment-165867188
+	sh := reflect.SliceHeader{
+		Data: uintptr(unsafe.Pointer(a)),
+		Len:  16,
+		Cap:  16,
+	}
+	out := *(*[]C.uint8_t)(unsafe.Pointer(&sh))
+	var outslice []byte
+	for _, d := range out {
+		outslice = append(outslice, byte(d))
+	}
+
+	return outslice
+}
+
+func SerialDecode(input string) (res []byte) {
+	defer func() {
+		if err := recover(); err != nil {
+			fmt.Printf("Panicing %s\r\n", err)
+		}
+	}()
+
+	padtext := []byte(input)
+	var data [][]byte
+
+	for len(padtext) > 0 {
+		if len(padtext)%16 != 0 {
+			fmt.Errorf("wrong length!")
+		}
+		data = append(data, padtext[:16])
+		padtext = padtext[16:]
+	}
+
+	for index, str128 := range data {
+		// fmt.Println("index:", index)
+
+		aa := serialencode(str128, index)
+		res = append(res, aa...)
+	}
+	// fmt.Println("function encode finished")
+
+	return
+}

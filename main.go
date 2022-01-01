@@ -15,6 +15,17 @@ func main() {
 	test()
 }
 
+/**
+ *
+ * !!!!!	此分枝仅用于速度测试比较
+ *
+ *
+ * *	为验证速度，统一将所有输入取为16倍数，且对加密、解密算法给予相同输入，抛弃了结果，只关注计算速度。
+ *
+ * !	请将以下函数分为两组分别测试，测试一组时注释另一组。
+ *
+ */
+
 func test() {
 	f, err := os.Open("text.txt")
 	if err != nil {
@@ -29,37 +40,51 @@ func test() {
 		line := scanner.Text()
 		fmt.Println("length", len(line))
 
-		testAes(line)
-		testParaAes(line)
 		//
+		testAes(line)
+		testInvAes(line)
+		//
+		testParaAes(line)
+		testParaInvAes(line)
+
+		// // //
 		// testAvxAes(line)
+		// testAvxInvAes(line)
+		// //
 		// testParaAvxAes(line)
+		// testParaAvxInvAes(line)
 	}
 
 }
 
-// func testParaAvxAes(input string) {
-// 	start := time.Now()
+/**
+ *
+ * * non-avx
+ *
+ */
 
-// 	_ = avxaes.Encode(input)
+func testAes(input string) {
+	start := time.Now()
 
-// 	period := time.Since(start)
-// 	fmt.Println("para avx aes time cost: ", period)
+	_ = aes.SerialEncode(input)
 
-// 	// fmt.Println(res)
+	period := time.Since(start)
+	fmt.Println("aes time cost: ", period)
 
-// }
+	// fmt.Println(res)
+}
 
-// func testAvxAes(input string) {
-// 	start := time.Now()
+//
+func testInvAes(input string) {
+	start := time.Now()
 
-// 	_ = avxaes.SerialEncode(input)
+	_ = aes.SerialDecode(input)
 
-// 	period := time.Since(start)
-// 	fmt.Println("avx aes time cost: ", period)
+	period := time.Since(start)
+	fmt.Println("inv aes time cost: ", period)
 
-// 	// fmt.Println(res)
-// }
+	// fmt.Println(res)
+}
 
 //
 func testParaAes(input string) {
@@ -73,13 +98,70 @@ func testParaAes(input string) {
 	// fmt.Println(res)
 }
 
-func testAes(input string) {
+//
+func testParaInvAes(input string) {
 	start := time.Now()
 
-	_ = aes.SerialEncode(input)
+	_ = aes.Decode(input)
 
 	period := time.Since(start)
-	fmt.Println("aes time cost: ", period)
+	fmt.Println("para inv aes time cost: ", period)
 
 	// fmt.Println(res)
 }
+
+/**
+ *
+ *
+ * * 	avx
+ *
+ */
+
+// func testAvxAes(input string) {
+// 	start := time.Now()
+
+// 	_ = avxaes.SerialEncode(input)
+
+// 	period := time.Since(start)
+// 	fmt.Println("avx aes time cost: ", period)
+
+// 	// fmt.Println(res)
+// }
+
+// //
+// func testAvxInvAes(input string) {
+// 	start := time.Now()
+
+// 	_ = avxaes.SerialDecode(input)
+
+// 	period := time.Since(start)
+// 	fmt.Println("avx inv aes time cost: ", period)
+
+// 	// fmt.Println(res)
+// }
+
+// //
+// func testParaAvxAes(input string) {
+// 	start := time.Now()
+
+// 	_ = avxaes.Encode(input)
+
+// 	period := time.Since(start)
+// 	fmt.Println("para avx aes time cost: ", period)
+
+// 	// fmt.Println(res)
+
+// }
+
+// //
+// func testParaAvxInvAes(input string) {
+// 	start := time.Now()
+
+// 	_ = avxaes.Decode(input)
+
+// 	period := time.Since(start)
+// 	fmt.Println("para avx inv aes time cost: ", period)
+
+// 	// fmt.Println(res)
+
+// }

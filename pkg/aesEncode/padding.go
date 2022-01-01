@@ -12,3 +12,16 @@ func padding(cipherText []byte, blockSize int) []byte {
 func PaddingByte(cipherText []byte) []byte {
 	return padding(cipherText, 16)
 }
+
+// UnPaddingByte unpadding the tail of cipherText.
+func UnPaddingByte(cipherText []byte) []byte {
+
+	length := len(cipherText)
+	lastChar := cipherText[length-1]
+	pad := bytes.Repeat([]byte{byte(lastChar)}, int(lastChar))
+
+	if !bytes.HasSuffix(cipherText, pad) {
+		return cipherText
+	}
+	return cipherText[:length-int(lastChar)]
+}
