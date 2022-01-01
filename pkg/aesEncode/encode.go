@@ -1,9 +1,9 @@
-package aesEncodeWithAvxSpeedUp
+package aesEncode
 
 //#cgo CFLAGS: "-mavx" "-mavx2"
-//#include "avx_aes_c/gmult.c"
-//#include "avx_aes_c/avx_aes.c"
-//#include "avx_aes_c/avx_main.c"
+//#include "aes_c/gmult.c"
+//#include "aes_c/aes.c"
+//#include "aes_c/aes_main.c"
 import "C"
 import (
 	"fmt"

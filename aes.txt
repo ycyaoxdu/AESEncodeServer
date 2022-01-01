@@ -1,0 +1,24 @@
+length 764
+aes time cost:  474.74µs
+para aes time cost:  669.367µs
+length 1528
+aes time cost:  189.214µs
+para aes time cost:  317.672µs
+length 2292
+aes time cost:  285.246µs
+para aes time cost:  438.244µs
+length 4584
+aes time cost:  418.322µs
+para aes time cost:  510.054µs
+length 9168
+aes time cost:  812.656µs
+para aes time cost:  815.563µs
+length 18336
+aes time cost:  2.110851ms
+para aes time cost:  1.522725ms
+length 36672
+aes time cost:  3.452833ms
+para aes time cost:  3.340475ms
+length 55008
+aes time cost:  4.895533ms
+para aes time cost:  4.329975ms

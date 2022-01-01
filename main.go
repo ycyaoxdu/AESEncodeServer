@@ -6,7 +6,8 @@ import (
 	"os"
 	"time"
 
-	aes "github.com/ycyaoxdu/AESEncodeServer/pkg/aesEncodeWithAvxSpeedUp"
+	aes "github.com/ycyaoxdu/AESEncodeServer/pkg/aesEncode"
+	// avxaes "github.com/ycyaoxdu/AESEncodeServer/pkg/aesEncodeWithAvxSpeedUp"
 )
 
 func main() {
@@ -26,21 +27,59 @@ func test() {
 	for scanner.Scan() {
 
 		line := scanner.Text()
-		fmt.Println(line)
-		testParaAvxAes(line)
-		fmt.Println("line over.")
+		fmt.Println("length", len(line))
+
+		testAes(line)
+		testParaAes(line)
+		//
+		// testAvxAes(line)
+		// testParaAvxAes(line)
 	}
 
 }
 
-func testParaAvxAes(input string) {
+// func testParaAvxAes(input string) {
+// 	start := time.Now()
+
+// 	_ = avxaes.Encode(input)
+
+// 	period := time.Since(start)
+// 	fmt.Println("para avx aes time cost: ", period)
+
+// 	// fmt.Println(res)
+
+// }
+
+// func testAvxAes(input string) {
+// 	start := time.Now()
+
+// 	_ = avxaes.SerialEncode(input)
+
+// 	period := time.Since(start)
+// 	fmt.Println("avx aes time cost: ", period)
+
+// 	// fmt.Println(res)
+// }
+
+//
+func testParaAes(input string) {
 	start := time.Now()
 
-	res := aes.Encode(input)
+	_ = aes.Encode(input)
 
 	period := time.Since(start)
-	fmt.Println("para avx aes time cost: ", period)
+	fmt.Println("para aes time cost: ", period)
 
-	fmt.Println(res)
+	// fmt.Println(res)
+}
 
+func testAes(input string) {
+	start := time.Now()
+
+	_ = aes.SerialEncode(input)
+
+	period := time.Since(start)
+	fmt.Println("aes time cost: ", period)
+
+	// fmt.Println(res)
 }
