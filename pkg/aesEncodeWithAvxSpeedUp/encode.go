@@ -50,11 +50,10 @@ func Encode(input string) (res []byte) {
 			fmt.Printf("Panicing %s\r\n", err)
 		}
 	}()
-
 	var rawResult []message
 
 	wg := sync.WaitGroup{}
-	channel := make(chan message, 10)
+	channel := make(chan message, 10000)
 
 	padtext := PaddingByte([]byte(input))
 	var data [][]byte
@@ -70,12 +69,12 @@ func Encode(input string) (res []byte) {
 	for index, str128 := range data {
 		wg.Add(1)
 		go encode(str128, &wg, channel, index)
-		fmt.Println("index:", index)
+		// fmt.Println("index:", index)
 	}
 
 	wg.Wait()
 	close(channel)
-	fmt.Println("channel closed")
+	// fmt.Println("channel closed")
 
 	for aa := range channel {
 		rawResult = append(rawResult, aa)
@@ -89,7 +88,86 @@ func Encode(input string) (res []byte) {
 		res = append(res, rawResult[0].data...)
 		rawResult = rawResult[1:]
 	}
-	fmt.Println("function encode finished")
+	// fmt.Println("function encode finished")
 
 	return
+}
+
+//
+func decode(msg []byte, waitgroup *sync.WaitGroup, buff chan<- message, i int) {
+	defer func() {
+		if err := recover(); err != nil {
+			fmt.Printf("Panicing in encode: %s\r\n", err)
+		}
+	}()
+
+	d := (*C.uint8_t)(unsafe.Pointer(&msg[0]))
+	a := C.inv_run(d)
+
+	// reference https://github.com/golang/go/issues/13656#issuecomment-165867188
+	sh := reflect.SliceHeader{uintptr(unsafe.Pointer(a)), 16, 32}
+	out := *(*[]C.uint8_t)(unsafe.Pointer(&sh))
+	var outslice []byte
+	for _, d := range out {
+		outslice = append(outslice, byte(d))
+	}
+	var temp message
+	temp.data = outslice
+	temp.id = i
+
+	buff <- temp
+
+	waitgroup.Done()
+}
+
+func Decode(input string) []byte {
+	defer func() {
+		if err := recover(); err != nil {
+			fmt.Printf("Panicing %s\r\n", err)
+		}
+	}()
+
+	var res []byte
+	var rawResult []message
+
+	wg := sync.WaitGroup{}
+	channel := make(chan message, 10000)
+
+	// remove /
+	padtext := []byte(input)
+	var data [][]byte
+
+	for len(padtext) > 0 {
+		if len(padtext)%16 != 0 {
+			fmt.Errorf("wrong length!")
+		}
+		data = append(data, padtext[:16])
+		padtext = padtext[16:]
+
+	}
+	for index, str128 := range data {
+		wg.Add(1)
+		go decode(str128, &wg, channel, index)
+		// fmt.Println("index:", index)
+	}
+
+	wg.Wait()
+	close(channel)
+	// fmt.Println("channel closed")
+
+	for aa := range channel {
+		rawResult = append(rawResult, aa)
+	}
+
+	sort.Slice(rawResult, func(i, j int) bool {
+		return rawResult[i].id < rawResult[j].id
+	})
+
+	for len(rawResult) > 0 {
+		res = append(res, rawResult[0].data...)
+		rawResult = rawResult[1:]
+	}
+	// fmt.Println("function encode finished")
+
+	return UnPaddingByte(res)
 }
