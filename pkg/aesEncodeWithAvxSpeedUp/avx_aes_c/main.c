@@ -1,6 +1,11 @@
 #include "avx_main.h"
 #include <stdio.h>
 
+/**
+ * @brief 用于单独调试C代码，Go调用时并未导入次文件。
+ * 
+ * @return int 
+ */
 int main()
 {
 	printf("AES ENCODE:\n");

@@ -2,6 +2,14 @@
 #include "gmult.h"
 #include <stdio.h>
 
+/**
+ ***********************************************************************
+ * @brief 密钥扩展
+ *
+ * 摘自    https://github.com/dhuertas/AES.git
+ *
+ */
+
 /*
  * The cipher Key.
  */
@@ -178,40 +186,48 @@ void aes_key_expansion(uint8_t *key, uint8_t *w)
         w[4 * i + 3] = w[4 * (i - Nk) + 3] ^ tmp[3];
     }
 }
-
 /**
- * 
- * 
- *     avx constants
- * 
+ **    密钥扩展完
+ **********************************************************************
  */
 
+/**
+ *  !    以下函数均为自己实现
+ *
+ *  *   用到的一些常量，辅助量
+ *
+ */
+// 列混合用到的T矩阵
 uint16_t T[] = {
     0x02, 0x03, 0x01, 0x01,
     0x01, 0x02, 0x03, 0x01,
     0x01, 0x01, 0x02, 0x03,
     0x03, 0x01, 0x01, 0x02};
+// 逆列混合用到的逆T矩阵
 uint16_t inv_T[] = {
     0x0e, 0x0b, 0x0d, 0x09,
     0x09, 0x0e, 0x0b, 0x0d,
     0x0d, 0x09, 0x0e, 0x0b,
     0x0b, 0x0d, 0x09, 0x0e};
+// 取最低位
 uint16_t mask_bit[] = {
     0x01, 0x01, 0x01, 0x01,
     0x01, 0x01, 0x01, 0x01,
     0x01, 0x01, 0x01, 0x01,
     0x01, 0x01, 0x01, 0x01};
+// 用于取32位数的低字节
 uint16_t mask_int16[] = {
     0xff, 0xff, 0xff, 0xff,
     0xff, 0xff, 0xff, 0xff,
     0xff, 0xff, 0xff, 0xff,
     0xff, 0xff, 0xff, 0xff};
+// 有限域乘法用到的常量0x1b
 uint16_t multiplier[] = {
     0x1b, 0x1b, 0x1b, 0x1b,
     0x1b, 0x1b, 0x1b, 0x1b,
     0x1b, 0x1b, 0x1b, 0x1b,
     0x1b, 0x1b, 0x1b, 0x1b};
-
+// 选取对角线元素
 uint16_t selector1[] = {
     0xff, 0x00, 0x00, 0x00,
     0x00, 0xff, 0x00, 0x00,
@@ -225,26 +241,28 @@ uint16_t(*p_multiplier) = multiplier;
 uint16_t(*p_mask_int16) = mask_int16;
 uint16_t(*p_selector1) = selector1;
 
+// 用于在_mm256i里实现行移位的辅助数组
 const long long left1[4] = {0x00, 0x30, 0x20, 0x10};
 const long long right1[4] = {0x00, 0x10, 0x20, 0x30};
 
 /**
- * 
- * 
- * 
- * * AVX FUNCTIONS
- * 
- * 
- * 
+ *
+ *
+ *
+ * * 函数
+ *
+ *
+ *
  */
 
+// 辅助函数，装填uint16_t数据到__m256i中
 void avx_print_u16(__m256i *input)
 {
     short *sho = (short *)input;
     printf(" %02x, %02x, %02x, %02x,\n %02x, %02x, %02x, %02x,\n %02x, %02x, %02x, %02x,\n %02x, %02x, %02x, %02x,\n\n", sho[0], sho[1], sho[2], sho[3], sho[4], sho[5], sho[6], sho[7], sho[8], sho[9], sho[10], sho[11], sho[12], sho[13], sho[14], sho[15]);
 }
 
-// fill the 4*4 matrix into __m256i.
+// 辅助函数，装填uint8_t数据到__m256i中，空出高字节不用
 __m256i avx_set_data_u8(uint8_t *in)
 {
     alignas(32) uint8_t input[32] = {
@@ -256,12 +274,13 @@ __m256i avx_set_data_u8(uint8_t *in)
     return _mm256_load_si256((const __m256i *)input);
 }
 
+// 从连续内存读取出一个__m256i
 __m256i avx_set_data_u16(uint16_t *in)
 {
     return _mm256_load_si256((const __m256i *)in);
 }
 
-//
+// 对矩阵整体循环左移一次
 __m256i avx_left_shift_step(__m256i state)
 {
     __m256i res = _mm256_or_si256(
@@ -269,31 +288,77 @@ __m256i avx_left_shift_step(__m256i state)
         _mm256_srli_epi64(state, 0x10));
     return res;
 }
-//
+
+// 对矩阵整体循环右移一次
 __m256i avx_right_shift_step(__m256i state)
 {
-
     __m256i res = _mm256_or_si256(
         _mm256_slli_epi64(state, 0x10),
         _mm256_srli_epi64(state, 0x30));
     return res;
 }
-//
+
+// 对矩阵整体循环上移一次
 __m256i avx_up_shift_step(__m256i state)
 {
     __m256i res = _mm256_permute4x64_epi64(state, 0b00111001);
     return res;
 }
 
+// 选出矩阵的对角线元素
 __m256i avx_select_diag(__m256i state)
 {
     __m256i avx_selector = avx_set_data_u16(p_selector1);
     __m256i res = _mm256_and_si256(state, avx_selector);
     return res;
 }
+// 辅助函数， 调整下数据位置
+__m256i avx_update_state(__m256i in_state)
+{
+    alignas(32) uint16_t temp_state[16];
+    _mm256_store_si256((__m256i *)&temp_state, in_state);
+    alignas(32) uint16_t state[16];
+
+    for (int x = 0; x < 4; x++)
+        for (int y = 0; y < 4; y++)
+            state[x + 4 * y] = temp_state[4 * x + y];
+
+    return avx_set_data_u16(state);
+}
+
+// 辅助函数，调整输出
+void get_avx_output(__m256i *message, uint8_t *out)
+{
+    uint16_t *sh = (uint16_t *)message;
+    //
+    out[0] = sh[0];
+    out[4] = sh[1];
+    out[8] = sh[2];
+    out[12] = sh[3];
+    //
+    out[1] = sh[4];
+    out[5] = sh[5];
+    out[9] = sh[6];
+    out[13] = sh[7];
+    //
+    out[2] = sh[8];
+    out[6] = sh[9];
+    out[10] = sh[10];
+    out[14] = sh[11];
+    //
+    out[3] = sh[12];
+    out[7] = sh[13];
+    out[11] = sh[14];
+    out[15] = sh[15];
+}
+
+/**
+ * * 功能函数
+ * 
+ */
 
 uint8_t res[16];
-// return round key for specified round i.
+// 根据扩展过的密钥和指定数值i获取本轮的轮密钥。
 uint8_t *get_round_key(int i, uint8_t *expanded_key)
 {
     res[0] = expanded_key[16 * i + 0];
@@ -317,25 +382,22 @@ uint8_t *get_round_key(int i, uint8_t *expanded_key)
     return p;
 }
 
-// avx_set_round_key return the round key specified by round i, and stores it in __m256i format.
+// avx_set_round_key 设置本轮的轮密钥
 __m256i avx_set_round_key(int i, uint8_t *expanded_key)
 {
     __m256i res = avx_set_data_u8(get_round_key(i, expanded_key));
     return res;
 }
 
-// avx_add_round_key do the add round key step with param state and round_key.
+// avx_add_round_key 轮密钥加函数
 __m256i avx_add_round_key(__m256i state, __m256i round_key)
 {
     __m256i res = _mm256_xor_si256(state, round_key);
 
     return res;
 }
-//
-//
-//
-//
-//
+
+// avx_sub_bytes 字节代换函数
 __m256i avx_sub_bytes(__m256i in_state)
 {
     alignas(32) uint16_t temp_state[16];
@@ -351,7 +413,7 @@ __m256i avx_sub_bytes(__m256i in_state)
     return res;
 }
 
-//
+// avx_shift_rows 行移位函数
 __m256i avx_shift_rows(__m256i input)
 {
     __m256i state = input;
@@ -366,20 +428,13 @@ __m256i avx_shift_rows(__m256i input)
     return res;
 }
 
-//
-__m256i avx_update_state(__m256i in_state)
-{
-    alignas(32) uint16_t temp_state[16];
-    _mm256_store_si256((__m256i *)&temp_state, in_state);
-    alignas(32) uint16_t state[16];
-
-    for (int x = 0; x < 4; x++)
-        for (int y = 0; y < 4; y++)
-            state[x + 4 * y] = temp_state[4 * x + y];
-
-    return avx_set_data_u16(state);
-}
-
+/**
+ * @brief 此函数是一个列混合辅助函数，实现了两矩阵之间对应位置的基于有限域的乘法
+ * 
+ * @param state     输入状态
+ * @param TT        T矩阵
+ * @return __m256i 
+ */
 __m256i avx_mix_colomn_helper(__m256i state, __m256i TT)
 {
     __m256i avx_mask_bit = avx_set_data_u16(p_mask_bit);
@@ -403,6 +458,12 @@ __m256i avx_mix_colomn_helper(__m256i state, __m256i TT)
     return res;
 }
 
+/**
+ * @brief 此函数也是一个列混合辅助函数，实现了两矩阵之间对应位置的基于有限域的加法
+ * 
+ * @param state     
+ * @return __m256i 
+ */
 __m256i avx_mix_colomn_add_helper(__m256i state)
 {
     __m256i avx_T = avx_set_data_u16(p_T);
@@ -430,7 +491,12 @@ __m256i avx_mix_colomn_add_helper(__m256i state)
     return res;
 }
 
-//
+/**
+ * @brief avx_mix_column 列混合函数，将state分为四组进行列混合计算，后将结果汇合。
+ * 
+ * @param state 
+ * @return __m256i 
+ */
 __m256i avx_mix_column(__m256i state)
 {
     //
@@ -452,7 +518,7 @@ __m256i avx_mix_column(__m256i state)
     return res;
 }
 
-//
+// avx_aes_loop AES加密算法第二步的循环过程
 __m256i avx_aes_loop(__m256i state, __m256i round_key)
 {
     return avx_add_round_key(
@@ -462,7 +528,7 @@ __m256i avx_aes_loop(__m256i state, __m256i round_key)
         round_key);
 }
 
-//
+// avx_aes_final AES加密算法第三步的最终过程
 __m256i avx_aes_final(__m256i state, __m256i round_key)
 {
     return avx_add_round_key(
@@ -471,33 +537,13 @@ __m256i avx_aes_final(__m256i state, __m256i round_key)
         round_key);
 }
 
-//
-void get_avx_output(__m256i *message, uint8_t *out)
-{
-    uint16_t *sh = (uint16_t *)message;
-    //
-    out[0] = sh[0];
-    out[4] = sh[1];
-    out[8] = sh[2];
-    out[12] = sh[3];
-    //
-    out[1] = sh[4];
-    out[5] = sh[5];
-    out[9] = sh[6];
-    out[13] = sh[7];
-    //
-    out[2] = sh[8];
-    out[6] = sh[9];
-    out[10] = sh[10];
-    out[14] = sh[11];
-    //
-    out[3] = sh[12];
-    out[7] = sh[13];
-    out[11] = sh[14];
-    out[15] = sh[15];
-}
-
-// avx_aes_encode do 128-bit aes encode.
+/**
+ * @brief AES加密的主函数，输入从in读取，输出存储到out，w是密钥扩展的结果
+ * 
+ * @param in 
+ * @param out 
+ * @param w 
+ */
 void avx_aes_encode(uint8_t *in, uint8_t *out, uint8_t *w)
 {
     uint8_t r = 0;
@@ -525,10 +571,11 @@ void avx_aes_encode(uint8_t *in, uint8_t *out, uint8_t *w)
 }
 
 /**
- *
+ ** AES解密函数
  *
  */
 
+// avx_inv_sub_bytes 反字节替代函数
 __m256i avx_inv_sub_bytes(__m256i in_state)
 {
     alignas(32) uint16_t temp_state[16];
@@ -543,6 +590,8 @@ __m256i avx_inv_sub_bytes(__m256i in_state)
 
     return res;
 }
+
+// avx_inv_shift_rows 反行移位函数
 __m256i avx_inv_shift_rows(__m256i input)
 {
     __m256i state = input;
@@ -557,6 +606,7 @@ __m256i avx_inv_shift_rows(__m256i input)
     return res;
 }
 
+// 实现了两矩阵之间对应位置的基于有限域的乘法
 __m256i avx_inv_mix_colomn_helper(__m256i state, __m256i TT)
 {
     // 0x0e 0x0b 0x0d 0x09
@@ -611,6 +661,7 @@ __m256i avx_inv_mix_colomn_helper(__m256i state, __m256i TT)
     return res;
 }
 
+// 实现了两矩阵之间对应位置的基于有限域的加法
 __m256i avx_inv_mix_colomn_add_helper(__m256i state)
 {
     __m256i avx_inv_T = avx_set_data_u16(p_inv_T);
@@ -637,6 +688,7 @@ __m256i avx_inv_mix_colomn_add_helper(__m256i state)
     return res;
 }
 
+// avx_inv_mix_column 逆列混合
 __m256i avx_inv_mix_column(__m256i state)
 {
     //
@@ -658,6 +710,7 @@ __m256i avx_inv_mix_column(__m256i state)
     return res;
 }
 
+// avx_inv_aes_loop 解密的第二步，循环
 __m256i avx_inv_aes_loop(__m256i state, __m256i round_key)
 {
     return avx_inv_mix_column(
@@ -667,6 +720,7 @@ __m256i avx_inv_aes_loop(__m256i state, __m256i round_key)
             round_key));
 }
 
+// avx_inv_aes_final 解密的第三步
 __m256i avx_inv_aes_final(__m256i state, __m256i round_key)
 {
     return avx_add_round_key(
@@ -676,6 +730,13 @@ __m256i avx_inv_aes_final(__m256i state, __m256i round_key)
         round_key);
 }
 
+/**
+ * @brief AES解密的主函数，输入从in读取，输出存储到out，w是密钥扩展的结果
+ * 
+ * @param in 
+ * @param out 
+ * @param w 
+ */
 void avx_aes_decode(uint8_t *in, uint8_t *out, uint8_t *w)
 {
     uint8_t r = 10;
