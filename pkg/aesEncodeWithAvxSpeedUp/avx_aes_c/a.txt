@@ -1,0 +1,17 @@
+AES ENCODE:
+Plaintext message:
+00 11 22 33 44 55 66 77 88 99 aa bb cc dd ee ff 
+Ciphered message:
+69 c4 e0 d8 6a 7b 04 30 d8 cd b7 80 70 b4 c5 5a 
+
+
+
+AES DECODE:
+Plaintext message:
+69 c4 e0 d8 6a 7b 04 30 d8 cd b7 80 70 b4 c5 5a 
+Ciphered message:(raw input)
+00 11 22 33 44 55 66 77 88 99 aa bb cc dd ee ff 
+
+vjioenfkjwkjcnwfrfsgrsfrgscdscsajjbgfvdfvfd
+
+SbUlu1Mkq7ZpCMHe3USNdWLAKrIeSlvK0+0sySft28lJtSW7UySrtmkIwd7dRI11
