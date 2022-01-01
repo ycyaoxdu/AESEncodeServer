@@ -177,77 +177,14 @@ void aes_key_expansion(uint8_t *key, uint8_t *w)
         w[4 * i + 2] = w[4 * (i - Nk) + 2] ^ tmp[2];
         w[4 * i + 3] = w[4 * (i - Nk) + 3] ^ tmp[3];
     }
-    // printf("print expanded key: ");
-    // for (int i = 0; i < 4 * 11 * 4; i++)
-    // {
-    //     if (i % 4 == 0)
-    //         printf("\n");
-
-    //     if (i % 16 == 0)
-    //         printf("\n\n");
-    //     printf("%02x\t", w[i]);
-    // }
-    // printf("\n");
 }
 
-// 00      01      02      03
-// 04      05      06      07
-// 08      09      0a      0b
-// 0c      0d      0e      0f
-
-// d6      aa      74      fd
-// d2      af      72      fa
-// da      a6      78      f1
-// d6      ab      76      fe
-
-// b6      92      cf      0b
-// 64      3d      bd      f1
-// be      9b      c5      00
-// 68      30      b3      fe
-
-// b6      ff      74      4e
-// d2      c2      c9      bf
-// 6c      59      0c      bf
-// 04      69      bf      41
-
-// 47      f7      f7      bc
-// 95      35      3e      03
-// f9      6c      32      bc
-// fd      05      8d      fd
-
-// 3c      aa      a3      e8
-// a9      9f      9d      eb
-// 50      f3      af      57
-// ad      f6      22      aa
-
-// 5e      39      0f      7d
-// f7      a6      92      96
-// a7      55      3d      c1
-// 0a      a3      1f      6b
-
-// 14      f9      70      1a
-// e3      5f      e2      8c
-// 44      0a      df      4d
-// 4e      a9      c0      26
-
-// 47      43      87      35
-// a4      1c      65      b9
-// e0      16      ba      f4
-// ae      bf      7a      d2
-
-// 54      99      32      d1
-// f0      85      57      68
-// 10      93      ed      9c
-// be      2c      97      4e
-
-// 13      11      1d      7f
-// e3      94      4a      17
-// f3      07      a7      8b
-// 4d      2b      30      c5
-
-/*
-    avx constants
-*/
+/**
+ * 
+ * 
+ *     avx constants
+ * 
+ */
 
 uint16_t T[] = {
     0x02, 0x03, 0x01, 0x01,
@@ -292,14 +229,14 @@ const long long left1[4] = {0x00, 0x30, 0x20, 0x10};
 const long long right1[4] = {0x00, 0x10, 0x20, 0x30};
 
 /**
- * @brief 
  * 
- * @param input 
- * @return 
+ * 
+ * 
  * * AVX FUNCTIONS
+ * 
+ * 
+ * 
  */
- 
-
 
 void avx_print_u16(__m256i *input)
 {
@@ -391,9 +328,6 @@ __m256i avx_set_round_key(int i, uint8_t *expanded_key)
 __m256i avx_add_round_key(__m256i state, __m256i round_key)
 {
     __m256i res = _mm256_xor_si256(state, round_key);
-
-    printf("avx_add_round_key:\n");
-    avx_print_u16(&res);
 
     return res;
 }
@@ -597,29 +531,20 @@ void avx_aes_encode(uint8_t *in, uint8_t *out, uint8_t *w)
 
 __m256i avx_inv_sub_bytes(__m256i in_state)
 {
-    printf("in avx_inv_sub_bytes...\n");
-
     alignas(32) uint16_t temp_state[16];
     _mm256_store_si256((__m256i *)&temp_state, in_state);
     alignas(32) uint16_t state[16];
 
     for (uint8_t i = 0; i < 4; ++i)
         for (uint8_t j = 0; j < 4; ++j)
-            // 拿出低八位有效数据去查表
-            // state[4 * i + j] = (uint16_t)getInvSBoxValue(temp_state[i + 4 * j]);
             state[4 * i + j] = (uint16_t)getInvSBoxValue(temp_state[4 * i + j]);
 
     __m256i res = avx_set_data_u16(state);
 
-    printf("avx_inv_sub_bytes:\n");
-    avx_print_u16(&res);
-    printf("out avx_inv_sub_bytes...\n");
     return res;
 }
 __m256i avx_inv_shift_rows(__m256i input)
 {
-    printf("in avx_shift_rows...\n");
-
     __m256i state = input;
     // load
     __m256i left = _mm256_set_epi64x(left1[3], left1[2], left1[1], left1[0]);
@@ -629,30 +554,18 @@ __m256i avx_inv_shift_rows(__m256i input)
     __m256i shift_left = _mm256_sllv_epi64(input, right);
     __m256i res = _mm256_or_si256(shift_left, shift_right);
 
-    printf("avx_shift_rows:\n");
-    avx_print_u16(&res);
-    printf("out avx_shift_rows...\n");
-
     return res;
 }
 
 __m256i avx_inv_mix_colomn_helper(__m256i state, __m256i TT)
 {
     // 0x0e 0x0b 0x0d 0x09
-
+    //
     __m256i avx_mask_bit = avx_set_data_u16(p_mask_bit);
     __m256i avx_mask_int16 = avx_set_data_u16(p_mask_int16);
     __m256i avx_multiplier = avx_set_data_u16(p_multiplier);
     //
-    //
-    __m256i s_left_1 = _mm256_and_si256(avx_mask_int16, _mm256_slli_epi16(state, 1));
-    __m256i s_right_7 = _mm256_srli_epi16(state, 7);
-    // 所有位乘二、四、八
-    __m256i s_mul2 = _mm256_xor_si256(s_left_1, _mm256_mullo_epi16(s_right_7, avx_multiplier));
-    __m256i s_mul4 = _mm256_xor_si256(s_mul2, _mm256_mullo_epi16(s_right_7, avx_multiplier));
-    __m256i s_mul8 = _mm256_xor_si256(s_mul4, _mm256_mullo_epi16(s_right_7, avx_multiplier));
-    //
-    // 选出有1、2、4置位的位置
+    // 选出1、2、4置位的位置
     __m256i t_right_1 = _mm256_srli_epi16(TT, 1);
     __m256i t_right_2 = _mm256_srli_epi16(TT, 2);
     //
@@ -661,17 +574,43 @@ __m256i avx_inv_mix_colomn_helper(__m256i state, __m256i TT)
     __m256i t_sel_4 = _mm256_and_si256(t_right_2, avx_mask_bit);
     //
     //
-    __m256i s1 = _mm256_mullo_epi16(t_sel_1, state);
-    __m256i s2 = _mm256_mullo_epi16(t_sel_2, s_mul2);
-    __m256i s4 = _mm256_mullo_epi16(t_sel_4, s_mul4);
-
     //
-    __m256i res = _mm256_xor_si256(s_mul8,
+    __m256i s_left_1 = _mm256_and_si256(avx_mask_int16, _mm256_slli_epi16(state, 1));
+    __m256i s_right_7 = _mm256_srli_epi16(state, 7);
+    __m256i s_mul2 = _mm256_xor_si256(s_left_1, _mm256_mullo_epi16(s_right_7, avx_multiplier));
+    //
+    __m256i s_mul2_left1 = _mm256_and_si256(avx_mask_int16, _mm256_slli_epi16(s_mul2, 1));
+    __m256i s_mul2_right_7 = _mm256_srli_epi16(s_mul2, 7);
+    __m256i s_mul4 = _mm256_xor_si256(s_mul2_left1, _mm256_mullo_epi16(s_mul2_right_7, avx_multiplier));
+    //
+    __m256i s_mul4_left1 = _mm256_and_si256(avx_mask_int16, _mm256_slli_epi16(s_mul4, 1));
+    __m256i s_mul4_right_7 = _mm256_srli_epi16(s_mul4, 7);
+    __m256i s8 = _mm256_xor_si256(s_mul4_left1, _mm256_mullo_epi16(s_mul4_right_7, avx_multiplier));
+    //
+    //
+    //
+    __m256i s1 = _mm256_mullo_epi16(state, t_sel_1);
+    //
+    __m256i s2 = _mm256_xor_si256(
+        _mm256_mullo_epi16(t_sel_2, s_left_1),
+        _mm256_mullo_epi16(
+            _mm256_and_si256(s_right_7, t_sel_2),
+            avx_multiplier));
+    //
+    __m256i s4 = _mm256_xor_si256(
+        _mm256_mullo_epi16(t_sel_4, s_mul2_left1),
+        _mm256_mullo_epi16(
+            _mm256_and_si256(s_mul2_right_7, t_sel_4),
+            avx_multiplier));
+    //
+    //
+    __m256i res = _mm256_xor_si256(s8,
                                    _mm256_xor_si256(s4,
                                                     _mm256_xor_si256(s2, s1)));
 
     return res;
 }
+
 __m256i avx_inv_mix_colomn_add_helper(__m256i state)
 {
     __m256i avx_inv_T = avx_set_data_u16(p_inv_T);
@@ -697,10 +636,9 @@ __m256i avx_inv_mix_colomn_add_helper(__m256i state)
 
     return res;
 }
+
 __m256i avx_inv_mix_column(__m256i state)
 {
-    printf("in avx_inv_mix_column...\n");
-
     //
     __m256i state_l0 = state;
     __m256i state_l1 = avx_left_shift_step(state_l0);
@@ -717,25 +655,11 @@ __m256i avx_inv_mix_column(__m256i state)
                                                   _mm256_or_si256(avx_right_shift_step(avx_right_shift_step(raw_res_part3)),
                                                                   avx_right_shift_step(avx_right_shift_step(avx_right_shift_step(raw_res_part4))))));
 
-    printf("avx_inv_mix_column:\n");
-    avx_print_u16(&res);
-    //
-    printf("out avx_inv_mix_column...\n");
-
     return res;
 }
 
 __m256i avx_inv_aes_loop(__m256i state, __m256i round_key)
 {
-    printf("------------------------------------------------------------------------\n");
-
-    // test
-    // printf("state:\n");
-    // avx_print_u16(&state);
-    // printf("round_key:\n");
-    // avx_print_u16(&round_key);
-    //
-
     return avx_inv_mix_column(
         avx_add_round_key(
             avx_inv_sub_bytes(
@@ -745,14 +669,6 @@ __m256i avx_inv_aes_loop(__m256i state, __m256i round_key)
 
 __m256i avx_inv_aes_final(__m256i state, __m256i round_key)
 {
-    printf("------------------------------------------------------------------------\n");
-
-    // test
-    // printf("state:\n");
-    // avx_print_u16(&state);
-    // printf("round_key:\n");
-    // avx_print_u16(&round_key);
-    //
     return avx_add_round_key(
         avx_inv_sub_bytes(
             avx_inv_shift_rows(
