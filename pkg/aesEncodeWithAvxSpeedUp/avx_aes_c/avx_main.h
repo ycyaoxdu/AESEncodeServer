@@ -5,4 +5,7 @@
 
 int *run(uint8_t in[16]);
 
+int *inv_run(uint8_t in[16]);
+
+
 #endif 

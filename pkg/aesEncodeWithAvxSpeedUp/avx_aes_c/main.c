@@ -1,16 +1,40 @@
 #include "avx_main.h"
-
+#include <stdio.h>
 
 int main()
 {
-	//input
+
 	uint8_t in[] = {
 		0x00, 0x11, 0x22, 0x33,
 		0x44, 0x55, 0x66, 0x77,
 		0x88, 0x99, 0xaa, 0xbb,
 		0xcc, 0xdd, 0xee, 0xff};
 
-	int* p = run(in);
-	
+	int *p = run(in);
+	printf("\n");
+	printf("\n");
+	printf("\n");
+	printf("\n");
+	printf("\n");
+	printf("\n");
+	printf("\n");
+	printf("\n");
+	printf("\n");
+	printf("\n");
+	printf("\n");
+	printf("\n");
+	printf("\n");
+	printf("\n");
+	printf("\n");
+	printf("\n");
+	printf("\n");
+	printf("\n");
+	uint8_t in2[] = {
+		0xd9, 0x17, 0xbf, 0x5f,
+		0x6a, 0xf1, 0x76, 0x0c,
+		0x66, 0x87, 0x87, 0x27,
+		0x90, 0x2e, 0x47, 0x44};
+
+	int *pp = inv_run(in2);
 	return 0;
 }
