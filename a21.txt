@@ -1,0 +1,57 @@
+length 96
+avx aes time cost:  69.681µs
+para avx aes time cost:  108.213µs
+length 192
+avx aes time cost:  38.803µs
+para avx aes time cost:  121.335µs
+length 384
+avx aes time cost:  65.839µs
+para avx aes time cost:  166.683µs
+length 768
+avx aes time cost:  99.435µs
+para avx aes time cost:  195.634µs
+length 1536
+avx aes time cost:  178.355µs
+para avx aes time cost:  426.445µs
+length 3072
+avx aes time cost:  326.37µs
+para avx aes time cost:  575.631µs
+length 6144
+avx aes time cost:  647.109µs
+para avx aes time cost:  1.734666ms
+length 9216
+avx aes time cost:  789.872µs
+para avx aes time cost:  1.056963ms
+length 12288
+avx aes time cost:  1.0393ms
+para avx aes time cost:  1.331972ms
+length 15360
+avx aes time cost:  1.192613ms
+para avx aes time cost:  1.774199ms
+length 18432
+avx aes time cost:  1.435908ms
+para avx aes time cost:  1.589569ms
+length 21504
+avx aes time cost:  1.635499ms
+para avx aes time cost:  2.168408ms
+length 24576
+avx aes time cost:  1.976486ms
+para avx aes time cost:  2.000745ms
+length 30720
+avx aes time cost:  2.206689ms
+para avx aes time cost:  2.891464ms
+length 36864
+avx aes time cost:  2.514005ms
+para avx aes time cost:  3.030233ms
+length 43008
+avx aes time cost:  2.907458ms
+para avx aes time cost:  3.41359ms
+length 49152
+avx aes time cost:  3.539279ms
+para avx aes time cost:  4.03363ms
+length 55296
+avx aes time cost:  3.665731ms
+para avx aes time cost:  3.869478ms
+length 61440
+avx aes time cost:  3.502526ms
+para avx aes time cost:  4.270393ms

@@ -1,0 +1,57 @@
+length 96
+aes time cost:  48.305µs
+para aes time cost:  149.858µs
+length 192
+aes time cost:  47.847µs
+para aes time cost:  112.938µs
+length 384
+aes time cost:  69.452µs
+para aes time cost:  125.095µs
+length 768
+aes time cost:  95.001µs
+para aes time cost:  260.716µs
+length 1536
+aes time cost:  188.887µs
+para aes time cost:  390.279µs
+length 3072
+aes time cost:  336.438µs
+para aes time cost:  461.63µs
+length 6144
+aes time cost:  567.661µs
+para aes time cost:  1.356959ms
+length 9216
+aes time cost:  784.039µs
+para aes time cost:  960.39µs
+length 12288
+aes time cost:  1.120122ms
+para aes time cost:  1.056169ms
+length 15360
+aes time cost:  1.391431ms
+para aes time cost:  1.659331ms
+length 18432
+aes time cost:  1.539655ms
+para aes time cost:  1.184782ms
+length 21504
+aes time cost:  1.856467ms
+para aes time cost:  2.434723ms
+length 24576
+aes time cost:  2.49327ms
+para aes time cost:  1.821945ms
+length 30720
+aes time cost:  2.811855ms
+para aes time cost:  2.729766ms
+length 36864
+aes time cost:  3.052942ms
+para aes time cost:  2.64605ms
+length 43008
+aes time cost:  3.700808ms
+para aes time cost:  2.887026ms
+length 49152
+aes time cost:  5.929506ms
+para aes time cost:  3.849435ms
+length 55296
+aes time cost:  5.051439ms
+para aes time cost:  5.451712ms
+length 61440
+aes time cost:  7.202762ms
+para aes time cost:  5.291471ms

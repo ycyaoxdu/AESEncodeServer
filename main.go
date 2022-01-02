@@ -40,19 +40,18 @@ func test() {
 		line := scanner.Text()
 		fmt.Println("length", len(line))
 
-		//
 		testAes(line)
-		testInvAes(line)
+		// testInvAes(line)
 		//
 		testParaAes(line)
-		testParaInvAes(line)
+		// testParaInvAes(line)
 
-		// // //
+		// //
 		// testAvxAes(line)
-		// testAvxInvAes(line)
+		// // testAvxInvAes(line)
 		// //
 		// testParaAvxAes(line)
-		// testParaAvxInvAes(line)
+		// // testParaAvxInvAes(line)
 	}
 
 }
@@ -98,7 +97,6 @@ func testParaAes(input string) {
 	// fmt.Println(res)
 }
 
-//
 func testParaInvAes(input string) {
 	start := time.Now()
 
