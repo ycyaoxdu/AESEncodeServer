@@ -75,8 +75,9 @@ func lengthCheck(s string) bool {
 	}
 	rrLen := len(s) / 4
 
-	if ((rrLen-1)*3%16) != 0 && ((rrLen*3)%16) != 0 {
+	if ((rrLen*3)%16) != 0 && ((rrLen-1)*3%16) != 0 && (((rrLen-1)*3+1)%16) != 0 && (((rrLen-1)*3+2)%16) != 0 {
 		return false
 	}
+
 	return true
 }
