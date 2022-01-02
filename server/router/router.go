@@ -45,7 +45,7 @@ func DecodeHandelr(ctx *gin.Context) {
 	}
 	str := strings.TrimPrefix(msg.Msg, "/")
 
-	if len(str)%16 != 0 {
+	if !lengthCheck(str) {
 		ctx.JSON(400, gin.H{
 			"msg": "wrong input length! have you changed it?",
 		})
@@ -59,7 +59,7 @@ func DecodeHandelr(ctx *gin.Context) {
 
 	result := aes.Decode(string(by))
 
-	if len(by)%16 != 0 {
+	if !lengthCheck(string(result)) {
 		ctx.JSON(400, gin.H{
 			"msg": "wrong input length! have you changed it?",
 		})
@@ -73,4 +73,17 @@ func DecodeHandelr(ctx *gin.Context) {
 	ctx.JSON(200, gin.H{
 		"message": res,
 	})
+}
+
+// check length for base64 encode
+func lengthCheck(s string) bool {
+	if len(s)%4 != 0 {
+		return false
+	}
+	rrLen := len(s) / 4
+
+	if ((rrLen-1)*3%16) != 0 && ((rrLen*3)%16) != 0 {
+		return false
+	}
+	return true
 }
