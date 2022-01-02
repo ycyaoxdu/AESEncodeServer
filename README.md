@@ -1,5 +1,7 @@
 # get start
 
+*AesCode in path `pkg/aesEncodeWithAvxSpeedUp/avx_aes_c` *
+
 #### prerequiest
 
 make sure you're using a CPU of x86 arch.
@@ -25,3 +27,4 @@ $ ./app
 GET http://localhost:8086/encode/<your message>
 GET http://localhost:8086/decode/<your message>
 ```
+
