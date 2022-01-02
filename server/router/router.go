@@ -59,13 +59,6 @@ func DecodeHandelr(ctx *gin.Context) {
 
 	result := aes.Decode(string(by))
 
-	if !lengthCheck(string(result)) {
-		ctx.JSON(400, gin.H{
-			"msg": "wrong input length! have you changed it?",
-		})
-		return
-	}
-
 	res := model.Message{
 		Msg: string(result),
 	}
